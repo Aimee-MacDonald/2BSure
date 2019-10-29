@@ -11,11 +11,13 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  res.status(200).render("register");
+  console.log("Auth Data:");
+  console.log(req.body);
 });
 
 router.post("/login", (req, res) => {
-  res.status(200).render("login");
+  console.log("Auth Data:");
+  console.log(req.body);
 });
 
 module.exports = router;
