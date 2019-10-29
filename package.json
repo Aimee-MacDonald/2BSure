@@ -1,0 +1,25 @@
+{
+  "name": "2bsure",
+  "version": "1.0.0",
+  "description": "2BSure Web Store",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aimee-MacDonald/2BSure.git"
+  },
+  "keywords": [
+    "2BSure",
+    "Web",
+    "Store",
+    "KetoMojo"
+  ],
+  "author": "Aimee MacDonald",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aimee-MacDonald/2BSure/issues"
+  },
+  "homepage": "https://github.com/Aimee-MacDonald/2BSure#readme"
+}
