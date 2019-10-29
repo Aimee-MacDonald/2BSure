@@ -1,0 +1,45 @@
+body
+  background-color: rgb(51, 153, 51)
+  background: linear-gradient(to top right, rgb(51, 153, 51), yellow)
+  margin: 0
+  width: 100vw
+  height: 100vh
+  display: flex
+  justify-content: center
+  align-items: center
+
+h1
+  margin: 0
+  color: orangered
+  font-size: 60pt
+
+.container
+  background-color: darkblue
+  padding: 5rem 10rem
+  border-radius: 1rem
+  box-shadow: 0 5rem 5rem 0 darken(grey, 40)
+  form
+    display: flex
+    flex-flow: nowrap column
+    label
+      color: orangered
+      font-weight: 900
+      font-size: 16pt
+      margin-top: 1rem
+    input
+      padding: 0.5rem
+      border-radius: 0.3rem
+    button
+      color: darkblue
+      font-weight: 900
+      margin-top: 2rem
+      padding: 1rem
+      border-radius: 0.3rem
+      background-color: yellow
+      border: none
+      transition: 0.2s
+      box-shadow: 0 0.5rem 1rem 0 black
+      &:hover
+        transform: translateY(-0.5rem)
+        cursor: pointer
+        box-shadow: 0 1rem 1rem 0 black
