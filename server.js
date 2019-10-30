@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 
 const auth = require(path.join(__dirname, "/routes/auth"));
 
-mongoose.connect(process.env.DBURL, {useNewUrlParser: true});
+mongoose.connect(process.env.DBURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "/views"));
