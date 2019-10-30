@@ -30,4 +30,12 @@ app.get("/login", (req, res) => {
   res.status(200).render("login");
 });
 
+app.get("/user", (req, res) => {
+  res.status(200).render("user");
+});
+
+app.get("/admin", (req, res) => {
+  res.status(200).render("admin");
+})
+
 app.listen(process.env.PORT, () => {console.log("Server started")});
