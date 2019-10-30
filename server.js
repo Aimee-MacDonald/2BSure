@@ -3,8 +3,11 @@ const app = express();
 require("dotenv").config();
 const path = require("path");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const auth = require(path.join(__dirname, "/routes/auth"));
+
+mongoose.connect(process.env.DBURL, {useNewUrlParser: true});
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "/views"));
