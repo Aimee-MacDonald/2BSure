@@ -71,6 +71,14 @@ app.get("/admin", (req, res) => {
   }
 });
 
+app.get("/error", (req, res) => {
+  res.render("error");
+});
+
+app.get("*", (req, res) => {
+  res.render("notfound");
+});
+
 passport.serializeUser(function(uid, done){
   done(null, uid);
 });
