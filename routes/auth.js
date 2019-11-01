@@ -21,15 +21,19 @@ router.post("/register", (req, res) => {
         if(err){
           res.send("Error Registering");
         } else {
-          req.login("userID", (err) => {
+          User.find({'email': req.body.email}, (err, docs) => {
             if(err) throw err;
-          });
 
-          res.redirect("/user");
+            req.login(docs[0]._id, (err) => {
+              if(err) throw err;
+            });
+
+            res.redirect("/user");
+          });
         }
       });
     }
-  })
+  });
 });
 
 router.post("/login", (req, res) => {
@@ -40,7 +44,7 @@ router.post("/login", (req, res) => {
       req.login(docs[0]._id, (err) => {
         if(err) throw err;
       });
-      
+
       res.redirect("/user");
     }
   });
