@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
+const csurf = require("csurf");
 
 const User = require(path.join(__dirname, "/dbmodels/user"));
 
@@ -33,6 +34,8 @@ app.use(bodyParser.urlencoded({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(csurf());
+
 app.use("/auth", auth);
 
 app.get("/", (req, res) => {
@@ -40,11 +43,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  res.status(200).render("register");
+  res.status(200).render("register", {csrfToken: req.csrfToken()});
 });
 
 app.get("/login", (req, res) => {
-  res.status(200).render("login");
+  res.status(200).render("login", {csrfToken: req.csrfToken()});
 });
 
 app.get("/user", (req, res) => {

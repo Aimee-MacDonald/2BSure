@@ -19,4 +19,6 @@ html(lang="en")
         label(for="confirm") Confirm Password
         input(type="password", id="confirm", name="confirm", placeholder="Confirm Password")
 
+        input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+
         button(type="submit") Register

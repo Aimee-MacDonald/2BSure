@@ -16,4 +16,6 @@ html(lang="en")
         label(for="password") Password:
         input(type="password", id="password", name="password", placeholder="Password")
 
+        input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+        
         button(type="submit") Login
