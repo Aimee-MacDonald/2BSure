@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
+const bcrypt = require("bcryptjs");
 
 const auth = require(path.join(__dirname, "/routes/auth"));
 

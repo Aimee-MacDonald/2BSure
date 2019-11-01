@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const bcrypt = require("bcryptjs");
 
 const User = require(path.join(__dirname, "../dbmodels/user"));
 
@@ -41,19 +42,23 @@ router.post("/login", (req, res) => {
     if(err) throw err;
 
     if(docs.length > 0){
-      if(req.body.password === docs[0].password){
-        req.login(docs[0]._id, (err) => {
-          if(err) throw err;
-        });
+      bcrypt.compare(req.body.password, docs[0].password, (err, resp) => {
+        if(err) throw err;
 
-        res.redirect("/user");
-      } else {
-        // Invalid Password
-        res.redirect("/login");
-      }
+        if(resp){
+          req.login(docs[0]._id, (err) => {
+            if(err) throw err;
+          });
+
+          res.redirect("/user");
+        } else {
+          // Invalid Credentials
+          res.redirect("/login");
+        }
+      });
     } else {
-      // No such User
-      res.redirect("/login");
+      // No Such User
+      res.redirect("/register");
     }
   });
 });
