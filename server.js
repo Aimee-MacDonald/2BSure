@@ -8,6 +8,8 @@ const passport = require("passport");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 
+const User = require(path.join(__dirname, "/dbmodels/user"));
+
 const auth = require(path.join(__dirname, "/routes/auth"));
 
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -55,11 +57,19 @@ app.get("/user", (req, res) => {
 
 app.get("/admin", (req, res) => {
   if(req.isAuthenticated()){
-    res.status(200).render("admin");
+    User.findById(req.session.passport.user, (err, docs) => {
+      if(err) throw err;
+
+      if(docs.access === "admin"){
+        res.status(200).render("admin");
+      } else {
+        res.redirect("/user");
+      }
+    });
   } else {
     res.redirect("/login");
   }
-})
+});
 
 passport.serializeUser(function(uid, done){
   done(null, uid);
@@ -69,4 +79,4 @@ passport.deserializeUser(function(uid, done){
   done(null, uid);
 });
 
-app.listen(process.env.PORT, () => {console.log("Server started")});
+app.listen(process.env.PORT);
