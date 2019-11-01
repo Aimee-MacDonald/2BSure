@@ -39,13 +39,21 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   User.find({'email': req.body.email}, (err, docs) => {
     if(err) throw err;
-    console.log(docs);
-    if(docs.length > 0){
-      req.login(docs[0]._id, (err) => {
-        if(err) throw err;
-      });
 
-      res.redirect("/user");
+    if(docs.length > 0){
+      if(req.body.password === docs[0].password){
+        req.login(docs[0]._id, (err) => {
+          if(err) throw err;
+        });
+
+        res.redirect("/user");
+      } else {
+        // Invalid Password
+        res.redirect("/login");
+      }
+    } else {
+      // No such User
+      res.redirect("/login");
     }
   });
 });
