@@ -58,7 +58,7 @@ app.get("/user", (req, res) => {
 app.get("/admin", (req, res) => {
   if(req.isAuthenticated()){
     User.findById(req.session.passport.user, (err, docs) => {
-      if(err) throw err;
+      if(err) res.redirect("/error");
 
       if(docs.access === "admin"){
         res.status(200).render("admin");

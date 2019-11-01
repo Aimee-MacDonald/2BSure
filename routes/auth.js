@@ -7,7 +7,8 @@ const User = require(path.join(__dirname, "../dbmodels/user"));
 
 router.post("/register", (req, res) => {
   User.find({'email': req.body.email}, (err, docs) => {
-    if(err) throw err;
+    if(err) res.redirect("/error");
+
     if(docs.length > 0){
       // User Already Exists
       res.redirect("/login");
@@ -23,10 +24,10 @@ router.post("/register", (req, res) => {
           res.send("Error Registering");
         } else {
           User.find({'email': req.body.email}, (err, docs) => {
-            if(err) throw err;
+            if(err) res.redirect("/error");
 
             req.login(docs[0]._id, (err) => {
-              if(err) throw err;
+              if(err) res.redirect("/error");
             });
 
             res.redirect("/user");
@@ -39,15 +40,15 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
   User.find({'email': req.body.email}, (err, docs) => {
-    if(err) throw err;
+    if(err) res.redirect("/error");
 
     if(docs.length > 0){
       bcrypt.compare(req.body.password, docs[0].password, (err, resp) => {
-        if(err) throw err;
+        if(err) res.redirect("/error");
 
         if(resp){
           req.login(docs[0]._id, (err) => {
-            if(err) throw err;
+            if(err) res.redirect("/error");
           });
 
           if(docs[0].access === "admin"){

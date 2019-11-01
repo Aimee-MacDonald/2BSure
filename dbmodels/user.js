@@ -11,10 +11,10 @@ var schema = new Schema({
 schema.pre("save", function(callback){
   var user = this;
   bcrypt.genSalt(5, function(err, salt){
-    if(err) throw err;
+    if(err) res.redirect("/error");
 
     bcrypt.hash(user.password, salt, function(err, hash){
-      if(err) throw err;
+      if(err) res.redirect("/error");
       user.password = hash;
       callback();
     });
