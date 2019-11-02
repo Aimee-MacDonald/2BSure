@@ -8,6 +8,7 @@ const passport = require("passport");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const csurf = require("csurf");
+const nodemailer = require("nodemailer");
 
 const User = require(path.join(__dirname, "/dbmodels/user"));
 

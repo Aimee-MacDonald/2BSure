@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
 
 const User = require(path.join(__dirname, "../dbmodels/user"));
 
@@ -27,6 +28,17 @@ router.post("/register", (req, res) => {
             if(err) res.redirect("/error");
 
             req.login(docs[0]._id, (err) => {
+              if(err) res.redirect("/error");
+            });
+
+            const mailoptions = {
+              from: 'aimeelmacdonald@gmail.com',
+              to: docs[0].email,
+              subject: 'Welcome to 2BSure',
+              html: '<p>Welcome to 2BSure! Please click this link:</p>'
+            };
+
+            transporter.sendMail(mailoptions, (err, info) => {
               if(err) res.redirect("/error");
             });
 
@@ -71,6 +83,14 @@ router.post("/login", (req, res) => {
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
+});
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.MAILUSER,
+    pass: process.env.MAILPASS
+  }
 });
 
 module.exports = router;
