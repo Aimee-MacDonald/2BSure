@@ -11,6 +11,7 @@ const csurf = require("csurf");
 const nodemailer = require("nodemailer");
 
 const User = require(path.join(__dirname, "/dbmodels/user"));
+const EmailVerification = require(path.join(__dirname, "/dbmodels/emailVerification"));
 
 const auth = require(path.join(__dirname, "/routes/auth"));
 
@@ -73,6 +74,29 @@ app.get("/admin", (req, res) => {
   } else {
     res.redirect("/login");
   }
+});
+
+app.get("/verifyEmail", (req, res) => {
+  EmailVerification.find({'verificationCode': req.query.code}, (err, vers) => {
+    if(err) res.redirect("/error");
+
+    if(vers.length > 0){
+      User.findOne({'email': vers[0].email}, (err, user) => {
+        if(err) res.redirect("/error");
+
+        user.verifiedEmail = true;
+        user.save();
+
+        EmailVerification.deleteOne({'verificationCode': req.query.code}, (err) => {
+          if(err) res.redirect("/error");
+        });
+
+        res.render("emailVerification");
+      });
+    } else {
+      res.redirect("/error");
+    }
+  });
 });
 
 app.get("/error", (req, res) => {

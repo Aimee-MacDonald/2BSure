@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 
 const User = require(path.join(__dirname, "../dbmodels/user"));
+const EmailVerification = require(path.join(__dirname, "../dbmodels/emailVerification"));
 
 router.post("/register", (req, res) => {
   User.find({'email': req.body.email}, (err, docs) => {
@@ -17,34 +18,24 @@ router.post("/register", (req, res) => {
       var newUser = new User({
         'email': req.body.email,
         'password': req.body.password,
-        'access': "user"
+        'access': "user",
+        'verifiedEmail': false
       });
 
       newUser.save(err => {
-        if(err){
-          res.send("Error Registering");
-        } else {
-          User.find({'email': req.body.email}, (err, docs) => {
+        if(err) res.redirect("/error");
+
+        User.find({'email': req.body.email}, (err, docs) => {
+          if(err) res.redirect("/error");
+
+          req.login(docs[0]._id, (err) => {
             if(err) res.redirect("/error");
 
-            req.login(docs[0]._id, (err) => {
-              if(err) res.redirect("/error");
-            });
-
-            const mailoptions = {
-              from: 'aimeelmacdonald@gmail.com',
-              to: docs[0].email,
-              subject: 'Welcome to 2BSure',
-              html: '<p>Welcome to 2BSure! Please click this link:</p>'
-            };
-
-            transporter.sendMail(mailoptions, (err, info) => {
-              if(err) res.redirect("/error");
-            });
+            sendVerificationEmail(req.body.email, docs[0]._id);
 
             res.redirect("/user");
           });
-        }
+        });
       });
     }
   });
@@ -85,12 +76,35 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.MAILUSER,
-    pass: process.env.MAILPASS
-  }
-});
+function sendVerificationEmail(userEmail, userId){
+  var newVerification = new EmailVerification({
+    'email': userEmail,
+    'verificationCode': userId
+  });
+
+  newVerification.save(err => {
+    if(err) throw err;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.MAILUSER,
+        pass: process.env.MAILPASS
+      }
+    });
+
+    const mailoptions = {
+      from: 'aimeelmacdonald@gmail.com',
+      to: userEmail,
+      subject: 'Welcome to 2BSure',
+      text: "Please click this link to verify your email:",
+      html: "<a href='http://localhost:8080/verifyEmail?code=" + userId + "'> Verify Email"
+    };
+
+    transporter.sendMail(mailoptions, (err, info) => {
+      if(err) throw err;
+    });
+  });
+}
 
 module.exports = router;
