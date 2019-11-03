@@ -98,7 +98,7 @@ function sendVerificationEmail(userEmail, userId){
       to: userEmail,
       subject: 'Welcome to 2BSure',
       text: "Please click this link to verify your email:",
-      html: "<a href='http://localhost:8080/verifyEmail?code=" + userId + "'> Verify Email"
+      html: "<a href='https://twobsure.herokuapp.com/verifyEmail?code=" + userId + "'> Verify Email"
     };
 
     transporter.sendMail(mailoptions, (err, info) => {
