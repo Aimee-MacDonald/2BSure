@@ -99,6 +99,14 @@ app.get("/verifyEmail", (req, res) => {
   });
 });
 
+app.get("/landing", (req, res) => {
+  if(req.isAuthenticated()){
+    res.status(200).render("landing");
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.get("/error", (req, res) => {
   res.render("error");
 });
