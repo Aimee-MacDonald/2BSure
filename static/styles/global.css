@@ -1,1 +1,75 @@
-body{background-color:#393;background:linear-gradient(to top right, #393, yellow);margin:0;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center}h1{margin:0;color:orangered;font-size:60pt}.container{background-color:darkblue;padding:5rem 10rem;border-radius:1rem;box-shadow:0 5rem 5rem 0 #1a1a1a}.container form{display:flex;flex-flow:nowrap column}.container form label{color:orangered;font-weight:900;font-size:16pt;margin-top:1rem}.container form input{padding:0.5rem;border-radius:0.3rem}.container form button{color:darkblue;font-weight:900;margin-top:2rem;padding:1rem;border-radius:0.3rem;background-color:yellow;border:none;transition:0.2s;box-shadow:0 0.5rem 1rem 0 black}.container form button:hover{transform:translateY(-0.5rem);cursor:pointer;box-shadow:0 1rem 1rem 0 black}
+body{
+  background-color: #393;
+  background: linear-gradient(to top right, #393, yellow);
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1{
+  margin: 0;
+  color: orangered;
+  font-size: 60pt;
+}
+
+.container{
+  background-color: darkblue;
+  padding: 5rem 10rem;
+  border-radius: 1rem;
+  box-shadow: 0 5rem 5rem 0 #1a1a1a
+}
+
+.container form{
+  display: flex;
+  flex-flow: nowrap column
+}
+
+.container form label{
+  color: orangered;
+  font-weight: 900;
+  font-size: 16pt;
+  margin-top: 1rem;
+}
+
+.container form input{
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+}
+
+.container form button{
+  color: darkblue;
+  font-weight: 900;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  background-color: yellow;
+  border: none;
+  transition: 0.2s;
+  box-shadow: 0 0.5rem 1rem 0 black;
+}
+
+.container form button:hover{
+  transform: translateY(-0.5rem);
+  cursor: pointer;
+  box-shadow: 0 1rem 1rem 0 black;
+}
+
+#products{
+  display: flex;
+}
+
+.product{
+  background-color: darkblue;
+  color: orangered;
+  font-weight: bold;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 0.5rem;
+}
+
+.product p{
+  text-align: center;
+}
