@@ -12,6 +12,7 @@ const nodemailer = require("nodemailer");
 
 const User = require(path.join(__dirname, "/dbmodels/user"));
 const EmailVerification = require(path.join(__dirname, "/dbmodels/emailVerification"));
+const Product = require(path.join(__dirname, "/dbmodels/product"));
 
 const auth = require(path.join(__dirname, "/routes/auth"));
 
@@ -101,7 +102,10 @@ app.get("/verifyEmail", (req, res) => {
 
 app.get("/landing", (req, res) => {
   if(req.isAuthenticated()){
-    res.status(200).render("landing");
+    Product.find({}, (err, docs) => {
+      if(err) res.redirect("/error");
+      res.status(200).render("landing", {products: docs});
+    });
   } else {
     res.redirect("/login");
   }
