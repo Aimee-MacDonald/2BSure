@@ -76,6 +76,10 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+router.get("/forgotPassword", (req, res) => {
+  res.status(200).render("forgotPassword", {csrfToken: req.csrfToken()});
+});
+
 function sendVerificationEmail(userEmail, userId){
   var newVerification = new EmailVerification({
     'email': userEmail,
