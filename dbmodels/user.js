@@ -11,15 +11,16 @@ var schema = new Schema({
 
 schema.pre("save", function(callback){
   var user = this;
-  bcrypt.genSalt(5, function(err, salt){
-    if(err) res.redirect("/error");
 
-    bcrypt.hash(user.password, salt, function(err, hash){
+  if(user.isModified("password") || user.isNew){
+    bcrypt.hash(user.password, bcrypt.genSaltSync(12), (err, hash) => {
       if(err) res.redirect("/error");
       user.password = hash;
       callback();
     });
-  });
+  } else {
+    callback();
+  }
 });
 
 module.exports = mongoose.model("user", schema);
