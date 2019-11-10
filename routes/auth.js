@@ -31,9 +31,25 @@ router.post("/register", (req, res) => {
           req.login(docs[0]._id, (err) => {
             if(err) res.redirect("/error");
 
-            sendVerificationEmail(req.body.email, docs[0]._id);
+            var newVerification = new EmailVerification({
+              'email': req.body.email,
+              'verificationCode': docs[0]._id
+            });
 
-            res.redirect("/user");
+            newVerification.save(err => {
+              if(err) res.redirect("/error");
+
+              var mailoptions = {
+                from: 'aimeelmacdonald@gmail.com',
+                to: req.body.email,
+                subject: 'Welcome to 2BSure',
+                text: "Please click this link to verify your email:",
+                html: "<a href='https://twobsure.herokuapp.com/verifyEmail?code=" + docs[0]._id + "'> Verify Email"
+              };
+
+              sendEmail(mailoptions);
+              res.redirect("/user");
+            });
           });
         });
       });
@@ -80,34 +96,17 @@ router.get("/forgotPassword", (req, res) => {
   res.status(200).render("forgotPassword", {csrfToken: req.csrfToken()});
 });
 
-function sendVerificationEmail(userEmail, userId){
-  var newVerification = new EmailVerification({
-    'email': userEmail,
-    'verificationCode': userId
+function sendEmail(mailoptions){
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.MAILUSER,
+      pass: process.env.MAILPASS
+    }
   });
 
-  newVerification.save(err => {
+  transporter.sendMail(mailoptions, (err, info) => {
     if(err) throw err;
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.MAILUSER,
-        pass: process.env.MAILPASS
-      }
-    });
-
-    const mailoptions = {
-      from: 'aimeelmacdonald@gmail.com',
-      to: userEmail,
-      subject: 'Welcome to 2BSure',
-      text: "Please click this link to verify your email:",
-      html: "<a href='https://twobsure.herokuapp.com/verifyEmail?code=" + userId + "'> Verify Email"
-    };
-
-    transporter.sendMail(mailoptions, (err, info) => {
-      if(err) throw err;
-    });
   });
 }
 
