@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 
 const User = require(path.join(__dirname, "../dbmodels/user"));
 const EmailVerification = require(path.join(__dirname, "../dbmodels/emailVerification"));
+const PasswordReset = require(path.join(__dirname, "../dbmodels/passwordReset"));
 
 router.post("/register", (req, res) => {
   User.find({'email': req.body.email}, (err, docs) => {
@@ -94,6 +95,72 @@ router.get("/logout", (req, res) => {
 
 router.get("/forgotPassword", (req, res) => {
   res.status(200).render("forgotPassword", {csrfToken: req.csrfToken()});
+});
+
+router.post("/forgotPassword", (req, res) => {
+  User.find({'email': req.body.email}, (err, docs) => {
+    if(err) res.redirect("/error");
+
+    if(docs.length > 0){
+      var newPR = new PasswordReset({
+        'email': req.body.email,
+        'resetCode': docs[0]._id
+      });
+
+      newPR.save(err => {
+        if(err) res.redirect("/error");
+
+        var mailoptions = {
+          from: 'aimeelmacdonald@gmail.com',
+          to: req.body.email,
+          subject: '2BSure Password Reset',
+          text: "Please click this link to reset your password:",
+          html: "<a href='https://twobsure.herokuapp.com/auth/resetPassword?code=" + docs[0]._id + "'> Reset Password"
+        };
+
+        sendEmail(mailoptions);
+        res.redirect("/login");
+      });
+    } else {
+      // No such User
+      res.redirect("/error");
+    }
+  });
+});
+
+router.get("/resetPassword", (req, res) => {
+  res.status(200).render("resetPassword", {csrfToken: req.csrfToken(), code: req.query.code});
+});
+
+router.post("/resetPassword", (req, res) => {
+  PasswordReset.find({'resetCode': req.body.code}, (err, docs) => {
+    if(err) res.redirect("/error");
+
+    if(docs.length > 0){
+      User.find({'email': docs[0].email}, (err, usr) => {
+        if(err) res.redirect("/error");
+
+        if(usr.length > 0){
+          usr[0].password = req.body.password;
+          usr[0].save(err => {
+            if(err) res.redirect("/error");
+
+            PasswordReset.deleteOne({'resetCode': req.body.code}, (err) => {
+              if(err) res.redirect("/error");
+
+              res.redirect("/login");
+            });
+          });
+        } else {
+          // No Such User
+          res.redirect("/error");
+        }
+      });
+    } else {
+      // Password Reset does not Exist
+      res.redirect("/error");
+    }
+  });
 });
 
 function sendEmail(mailoptions){
