@@ -20,7 +20,8 @@ router.post("/register", (req, res) => {
         'email': req.body.email,
         'password': req.body.password,
         'access': "user",
-        'verifiedEmail': false
+        'verifiedEmail': false,
+        'cart': []
       });
 
       newUser.save(err => {

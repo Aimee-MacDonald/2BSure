@@ -59,6 +59,7 @@ h1{
 
 #products{
   display: flex;
+  flex-flow: wrap row;
 }
 
 .product{
