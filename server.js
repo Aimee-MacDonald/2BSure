@@ -129,6 +129,18 @@ app.post("/addToCart", (req, res) => {
   }
 });
 
+app.get("/cart", (req, res) => {
+  if(req.isAuthenticated()){
+    User.findById(req.session.passport.user, (err, usr) => {
+      if(err) res.redirect("/error");
+
+      res.status(200).render("cart", {'cart': usr.cart});
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.get("/error", (req, res) => {
   res.render("error");
 });
