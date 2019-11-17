@@ -16,6 +16,11 @@ h1{
   font-size: 60pt;
 }
 
+ul{
+  list-style-type: none;
+  padding: 0;
+}
+
 .container{
   background-color: darkblue;
   padding: 5rem 10rem;
