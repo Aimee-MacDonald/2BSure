@@ -10,5 +10,7 @@ html(lang="en")
   body
     input(id="dbProducts", value= products)
     input(id="csrf", value= csrfToken)
+    input(id="cartCount", value= cartCount)
+    a(href="/cart", id="cart") Cart: 0
     div(id="products")
     script(src="/scripts/landing.js")

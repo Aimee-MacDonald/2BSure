@@ -6,6 +6,12 @@ var el_csrfToken = document.getElementById("csrf");
 var csrfToken = el_csrfToken.value;
 el_csrfToken.parentNode.removeChild(el_csrfToken);
 
+var el_cartCount = document.getElementById("cartCount");
+var cartCount = parseInt(el_cartCount.value);
+el_cartCount.parentNode.removeChild(el_cartCount);
+var cartText = "Cart: " + cartCount;
+document.getElementById("cart").innerText = cartText;
+
 var el_products = document.getElementById("products");
 
 for(var i = 0; i < products.length; i++){
@@ -34,7 +40,9 @@ function addToCart(prodID){
   request.onload = function(){
     if(request.readyState === 4){
       if(request.status === 200){
-        console.log("Added to Cart");
+        cartCount++;
+        cartText = "Cart: " + cartCount;
+        document.getElementById("cart").innerText = cartText;
       } else {
         console.log("Error adding to Cart");
       }

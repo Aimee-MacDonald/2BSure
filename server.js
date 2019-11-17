@@ -102,9 +102,11 @@ app.get("/verifyEmail", (req, res) => {
 
 app.get("/landing", (req, res) => {
   if(req.isAuthenticated()){
-    Product.find({}, (err, docs) => {
-      if(err) res.redirect("/error");
-      res.status(200).render("landing", {products: docs, 'csrfToken': req.csrfToken()});
+    User.findById(req.session.passport.user, (err, usr) => {
+      Product.find({}, (err, docs) => {
+        if(err) res.redirect("/error");
+        res.status(200).render("landing", {'products': docs, 'csrfToken': req.csrfToken(), 'cartCount': usr.cart.length});
+      });
     });
   } else {
     res.redirect("/login");
