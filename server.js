@@ -143,6 +143,40 @@ app.get("/cart", (req, res) => {
   }
 });
 
+app.get("/ketomojo", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
+app.get("/ketosis", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
+app.get("/instructions", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
+app.get("/order_history", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
+app.get("/privacy_policy", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
+app.get("/terms_of_service", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
+app.get("/addToCart", (req, res) => {
+  console.log("Add to Cart:");
+  console.log(req.query.PRODUCT);
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
+app.get("/more_products", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
 app.get("/error", (req, res) => {
   res.render("error");
 });
