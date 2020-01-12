@@ -174,7 +174,7 @@ app.get("/addToCart", (req, res) => {
 });
 
 app.get("/more_products", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
+  res.status(200).render("more_products");
 });
 
 app.get("/error", (req, res) => {
