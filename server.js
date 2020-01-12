@@ -15,6 +15,7 @@ const EmailVerification = require(path.join(__dirname, "/dbmodels/emailVerificat
 const Product = require(path.join(__dirname, "/dbmodels/product"));
 
 const auth = require(path.join(__dirname, "/routes/auth"));
+const mockapi = require(path.join(__dirname, "/routes/mockapi"));
 
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -40,6 +41,7 @@ app.use(passport.session());
 app.use(csurf());
 
 app.use("/auth", auth);
+app.use("/mockapi", mockapi);
 
 app.get("/", (req, res) => {
   res.status(200).render("holding");
