@@ -103,6 +103,8 @@ app.get("/verifyEmail", (req, res) => {
 });
 
 app.get("/landing", (req, res) => {
+  res.status(200).render("landing");
+  /*
   if(req.isAuthenticated()){
     User.findById(req.session.passport.user, (err, usr) => {
       Product.find({}, (err, docs) => {
@@ -113,6 +115,7 @@ app.get("/landing", (req, res) => {
   } else {
     res.redirect("/login");
   }
+  */
 });
 
 app.post("/addToCart", (req, res) => {
