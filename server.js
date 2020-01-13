@@ -47,6 +47,10 @@ app.get("/", (req, res) => {
   res.status(200).render("holding");
 });
 
+app.get("/products", (req, res) => {
+  res.status(200).render("products");
+});
+
 app.get("/register", (req, res) => {
   res.status(200).render("register", {csrfToken: req.csrfToken()});
 });

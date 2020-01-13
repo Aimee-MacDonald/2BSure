@@ -4,4 +4,6 @@ body{
   background: linear-gradient(to top right, #0bf538, #def50b);
   min-width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
