@@ -4,58 +4,12 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel="stylesheet", href="/styles/global_min.css")
     title 2BSure | Home
 
   body
-    img(src="/images/ketomojo.svg" alt="Ketomojo")
-
-    div
-      ul
-        li
-          a(href="ketomojo") Ketomojo
-        li
-          a(href="ketosis") Ketosis
-        li
-          a(href="instructions") Instructions
-
-      ul
-        li
-          a(href="order_history") Order History
-
-      ul
-        li
-          a(href="privacy_policy") Privacy Policy
-        li
-          a(href="terms_of_service") Terms of Service
-
-      ul
-        li
-          a(href="login") Login
-        li
-          a(href="register") Register
-    div
-      div
-        img(src="/images/products/product_1.svg")
-        p Ketomojo
-        p R200
-        a(href="addToCart?PRODUCT=product_1") Add to Cart
-
-      div
-        img(src="/images/products/product_2.svg")
-        p Ketomojo and 50 Glucose Strips
-        p R250
-        a(href="addToCart?PRODUCT=product_2") Add to Cart
-
-      div
-        img(src="/images/products/product_3.svg")
-        p Ketomojo and 50 Ketone Strips
-        p R250
-        a(href="addToCart?PRODUCT=product_3") Add to Cart
-
-      div
-        img(src="/images/products/product_4.svg")
-        p Ketomojo and 50 Glucose Strips and 50 Ketone Strips
-        p R300
-        a(href="addToCart?PRODUCT=product_4") Add to Cart
-
-    a(href="more_products") More Products
+    img(src="/images/ketomojo.svg", alt="Ketomojo", id="splash")
+    p Short descriptive paragraph explaining the purpose and importance of ketomojo
+    div(class="container")
+      a(href="learn_more") Learn More
+      a(href="products") Order Now
