@@ -13,6 +13,7 @@ const nodemailer = require("nodemailer");
 const User = require(path.join(__dirname, "/dbmodels/user"));
 const EmailVerification = require(path.join(__dirname, "/dbmodels/emailVerification"));
 const Product = require(path.join(__dirname, "/dbmodels/product"));
+const Cart = require(path.join(__dirname, "/dbmodels/cart"));
 
 const auth = require(path.join(__dirname, "/routes/auth"));
 const mockapi = require(path.join(__dirname, "/routes/mockapi"));
@@ -122,7 +123,46 @@ app.get("/landing", (req, res) => {
   */
 });
 
-app.post("/addToCart", (req, res) => {
+app.get("/addToCart", (req, res) => {
+  if(req.isAuthenticated()){
+    User.findById(req.session.passport.user, (err, usr) => {
+      Cart.findOne({'userID': req.session.passport.user}, (err2, docs) => {
+        if(err2) res.redirect("/error");
+
+        if(docs){
+          docs[req.query.product] = docs[req.query.product] + 1;
+          docs.lastEdit = new Date().getTime();
+
+          docs.save(err => {
+            if(err) res.redirect("/error");
+          });
+
+          res.redirect("/cart");
+        } else {
+          var newCart = new Cart({
+            'userID': req.session.passport.user,
+            lastEdit: new Date().getTime(),
+            product1: 0,
+            product2: 0,
+            product3: 0,
+            product4: 0
+          });
+
+          newCart[req.query.product] = newCart[req.query.product] + 1;
+
+          newCart.save(err => {
+            if(err) res.redirect("/error");
+          });
+
+          res.redirect("/cart");
+        }
+      });
+    });
+  } else {
+    res.redirect("/login");
+  }
+
+  /*
   if(req.isAuthenticated()){
     User.findById(req.session.passport.user, (err, usr) => {
       if(err) res.redirect("/error");
@@ -138,6 +178,7 @@ app.post("/addToCart", (req, res) => {
     // User not Logged in
     res.redirect("/login");
   }
+  */
 });
 
 app.get("/cart", (req, res) => {
@@ -173,12 +214,6 @@ app.get("/privacy_policy", (req, res) => {
 });
 
 app.get("/terms_of_service", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
-});
-
-app.get("/addToCart", (req, res) => {
-  console.log("Add to Cart:");
-  console.log(req.query.PRODUCT);
   res.send("<h1>Page not yet Implemented</h1>");
 });
 
