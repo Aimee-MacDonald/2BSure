@@ -6,4 +6,6 @@ body{
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  display: flex;
+  flex-flow: nowrap column;
 }
