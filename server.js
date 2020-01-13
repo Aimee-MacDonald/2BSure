@@ -152,11 +152,11 @@ app.get("/cart", (req, res) => {
   }
 });
 
-app.get("/ketomojo", (req, res) => {
+app.get("/ketosis", (req, res) => {
   res.send("<h1>Page not yet Implemented</h1>");
 });
 
-app.get("/ketosis", (req, res) => {
+app.get("/ketomojo", (req, res) => {
   res.send("<h1>Page not yet Implemented</h1>");
 });
 
@@ -184,6 +184,10 @@ app.get("/addToCart", (req, res) => {
 
 app.get("/more_products", (req, res) => {
   res.status(200).render("more_products");
+});
+
+app.get("/learn_more", (req, res) => {
+  res.status(200).render("information");
 });
 
 app.get("/error", (req, res) => {
