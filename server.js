@@ -156,7 +156,19 @@ app.get("/cart", (req, res) => {
     User.findById(req.session.passport.user, (err, usr) => {
       if(err) res.redirect("/error");
 
-      res.status(200).render("cart", {'cart': usr.cart});
+      Cart.findOne({'userID': usr._id}, (err2, crt) => {
+        if(err2) res.redirect("/error");
+
+        var respac = {};
+        if(crt){
+          if(crt.product1 > 0) respac.value1 = "Product 1: " + crt.product1;
+          if(crt.product2 > 0) respac.value2 = "Product 2: " + crt.product2;
+          if(crt.product3 > 0) respac.value3 = "Product 3: " + crt.product3;
+          if(crt.product4 > 0) respac.value4 = "Product 4: " + crt.product4;
+        }
+        
+        res.status(200).render("cart", {'cart': respac});
+      });
     });
   } else {
     res.redirect("/login");
