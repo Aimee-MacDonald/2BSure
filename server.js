@@ -203,6 +203,26 @@ app.get("/learn_more", (req, res) => {
   res.status(200).render("information");
 });
 
+app.get("/removeFromCart", (req, res) => {
+  if(req.isAuthenticated()){
+    Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
+      if(err) res.redirect("/error");
+
+      if(crt && crt[req.query.product] > 0){
+        crt[req.query.product] = crt[req.query.product] - 1;
+
+        crt.save(err2 => {
+          if(err2) res.redirect("/error");
+        });
+      }
+    });
+
+    res.redirect("/cart");
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.get("/error", (req, res) => {
   res.render("error");
 });

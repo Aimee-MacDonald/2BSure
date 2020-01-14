@@ -10,8 +10,17 @@ html(lang="en")
   body
     h1 Cart
     ul
-      li #{cart.value1}
-      li #{cart.value2}
-      li #{cart.value3}
-      li #{cart.value4}
+      li
+        p #{cart.value1}
+        a(href="/removeFromCart?product=product1") Remove from Cart
+      li
+        p #{cart.value2}
+        a(href="/removeFromCart?product=product2") Remove from Cart
+      li
+        p #{cart.value3}
+        a(href="/removeFromCart?product=product3") Remove from Cart
+      li
+        p #{cart.value4}
+        a(href="/removeFromCart?product=product4") Remove from Cart
+
     p Total: #{cart.total}
