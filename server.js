@@ -166,7 +166,7 @@ app.get("/cart", (req, res) => {
           if(crt.product3 > 0) respac.value3 = "Product 3: " + crt.product3;
           if(crt.product4 > 0) respac.value4 = "Product 4: " + crt.product4;
         }
-        
+
         res.status(200).render("cart", {'cart': respac});
       });
     });
@@ -197,10 +197,6 @@ app.get("/privacy_policy", (req, res) => {
 
 app.get("/terms_of_service", (req, res) => {
   res.send("<h1>Page not yet Implemented</h1>");
-});
-
-app.get("/more_products", (req, res) => {
-  res.status(200).render("more_products");
 });
 
 app.get("/learn_more", (req, res) => {
