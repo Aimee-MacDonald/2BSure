@@ -109,18 +109,6 @@ app.get("/verifyEmail", (req, res) => {
 
 app.get("/landing", (req, res) => {
   res.status(200).render("landing");
-  /*
-  if(req.isAuthenticated()){
-    User.findById(req.session.passport.user, (err, usr) => {
-      Product.find({}, (err, docs) => {
-        if(err) res.redirect("/error");
-        res.status(200).render("landing", {'products': docs, 'csrfToken': req.csrfToken(), 'cartCount': usr.cart.length});
-      });
-    });
-  } else {
-    res.redirect("/login");
-  }
-  */
 });
 
 app.get("/addToCart", (req, res) => {
@@ -161,24 +149,6 @@ app.get("/addToCart", (req, res) => {
   } else {
     res.redirect("/login");
   }
-
-  /*
-  if(req.isAuthenticated()){
-    User.findById(req.session.passport.user, (err, usr) => {
-      if(err) res.redirect("/error");
-
-      usr.cart.push(req.body.id);
-      usr.save(err => {
-        if(err) res.redirect("/error");
-      });
-
-      res.status(200).send("Success");
-    });
-  } else {
-    // User not Logged in
-    res.redirect("/login");
-  }
-  */
 });
 
 app.get("/cart", (req, res) => {
