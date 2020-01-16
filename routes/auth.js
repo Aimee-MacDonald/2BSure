@@ -75,7 +75,7 @@ router.post("/login", (req, res) => {
           if(docs[0].access === "admin"){
             res.redirect("/admin");
           } else {
-            res.redirect("/user");
+            res.redirect("/landing");
           }
         } else {
           // Invalid Credentials
