@@ -223,6 +223,10 @@ app.get("/removeFromCart", (req, res) => {
   }
 });
 
+app.get("/verifyAddress", (req, res) => {
+  res.send("<h1>Page not yet Implemented</h1>");
+});
+
 app.get("/error", (req, res) => {
   res.render("error");
 });
