@@ -224,7 +224,24 @@ app.get("/removeFromCart", (req, res) => {
 });
 
 app.get("/verifyAddress", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
+  if(!req.isAuthenticated()) res.redirect("/login");
+  res.status(200).render("verifyAddress", {csrfToken: req.csrfToken()});
+});
+
+app.post("/verifyAddress", (req, res) => {
+  if(!req.isAuthenticated()) res.redirect("/login");
+
+  res.redirect("/payment");
+});
+
+app.get("/payment", (req, res) => {
+  if(!req.isAuthenticated()) res.redirect("/login");
+  res.status(200).render("payment", {csrfToken: req.csrfToken()});
+});
+
+app.post("/payment", (req, res) => {
+  if(!req.isAuthenticated()) res.redirect("/login");
+  res.redirect("/user");
 });
 
 app.get("/error", (req, res) => {
