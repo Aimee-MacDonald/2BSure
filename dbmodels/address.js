@@ -10,4 +10,4 @@ var schema = new Schema({
   postcode: {type: String, required: true},
 });
 
-module.exports = mongoose.model("order", schema);
+module.exports = mongoose.model("adress", schema);

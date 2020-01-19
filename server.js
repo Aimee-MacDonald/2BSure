@@ -15,7 +15,7 @@ const EmailVerification = require(path.join(__dirname, "/dbmodels/emailVerificat
 const Product = require(path.join(__dirname, "/dbmodels/product"));
 const Cart = require(path.join(__dirname, "/dbmodels/cart"));
 const Order = require(path.join(__dirname, "/dbmodels/order"));
-const Order = require(path.join(__dirname, "/dbmodels/address"));
+const Address = require(path.join(__dirname, "/dbmodels/address"));
 
 const auth = require(path.join(__dirname, "/routes/auth"));
 const mockapi = require(path.join(__dirname, "/routes/mockapi"));
