@@ -280,7 +280,22 @@ app.post("/verifyAddress", (req, res) => {
 
 app.get("/payment", (req, res) => {
   if(!req.isAuthenticated()) res.redirect("/login");
-  res.status(200).render("payment", {csrfToken: req.csrfToken()});
+
+  Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
+    if(err) res.redirect("/error");
+
+    var respac = {};
+    respac.csrfToken = req.csrfToken();
+
+    if(crt){
+      respac.product1 = crt.product1;
+      respac.product2 = crt.product2;
+      respac.product3 = crt.product3;
+      respac.product4 = crt.product4;
+    }
+
+    res.status(200).render("payment", respac);
+  });
 });
 
 app.post("/payment", (req, res) => {
