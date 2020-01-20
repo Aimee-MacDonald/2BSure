@@ -300,7 +300,33 @@ app.get("/payment", (req, res) => {
 
 app.post("/payment", (req, res) => {
   if(!req.isAuthenticated()) res.redirect("/login");
-  res.redirect("/user");
+
+  Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
+    if(err) res.redirect("/error");
+
+    if(crt){
+      var newOrder = new Order({
+        userID: req.session.passport.user,
+        status: "requested",
+        product1: crt.product1,
+        product2: crt.product2,
+        product3: crt.product3,
+        product4: crt.product4
+      });
+
+      newOrder.save(err => {
+        if(err) res.redirect("/error");
+
+        Cart.deleteOne({'_id': crt._id}, err => {
+          if(err) res.redirect("/error");
+        });
+
+        res.redirect("user");
+      });
+    } else {
+      res.redirect("/cart");
+    }
+  });
 });
 
 app.get("/error", (req, res) => {
