@@ -10,4 +10,8 @@ html(lang="en")
   body
     div(class="container")
       h1 User Page
+      each ord in orders
+        each val in ord
+         p= val
+
       a(href="/auth/logout") Logout
