@@ -226,107 +226,115 @@ app.get("/removeFromCart", (req, res) => {
 });
 
 app.get("/verifyAddress", (req, res) => {
-  if(!req.isAuthenticated()) res.redirect("/login");
+  if(req.isAuthenticated()){
+    Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
+      if(err) res.redirect("/error");
 
-  Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
-    if(err) res.redirect("/error");
+      var respac = {};
+      respac.csrfToken = req.csrfToken();
 
-    var respac = {};
-    respac.csrfToken = req.csrfToken();
+      if(adr){
+        respac.line1 = adr.line1;
+        respac.line2 = adr.line2;
+        respac.town = adr.town;
+        respac.province = adr.province;
+        respac.postcode = adr.postcode;
+      }
 
-    if(adr){
-      respac.line1 = adr.line1;
-      respac.line2 = adr.line2;
-      respac.town = adr.town;
-      respac.province = adr.province;
-      respac.postcode = adr.postcode;
-    }
-
-    res.status(200).render("verifyAddress", respac);
-  });
+      res.status(200).render("verifyAddress", respac);
+    });
+  } else {
+     res.redirect("/login");
+  }
 });
 
 app.post("/verifyAddress", (req, res) => {
-  if(!req.isAuthenticated()) res.redirect("/login");
+  if(req.isAuthenticated()){
+    Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
+      if(err) res.redirect("/error");
 
-  Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
-    if(err) res.redirect("/error");
+      if(adr){
+        adr.line1 = req.body.line1;
+        adr.line2 = req.body.line2;
+        adr.town = req.body.town;
+        adr.province = req.body.province;
+        adr.postcode = req.body.postcode;
 
-    if(adr){
-      adr.line1 = req.body.line1;
-      adr.line2 = req.body.line2;
-      adr.town = req.body.town;
-      adr.province = req.body.province;
-      adr.postcode = req.body.postcode;
+        adr.save(err => {if(err) res.redirect("/error")});
 
-      adr.save(err => {if(err) res.redirect("/error")});
+        res.redirect("/payment");
+      } else {
+        var newAdr = new Address({
+          userID: req.session.passport.user,
+          line1: req.body.line1,
+          line2: req.body.line2,
+          town: req.body.town,
+          province: req.body.province,
+          postcode: req.body.postcode
+        });
 
-      res.redirect("/payment");
-    } else {
-      var newAdr = new Address({
-        userID: req.session.passport.user,
-        line1: req.body.line1,
-        line2: req.body.line2,
-        town: req.body.town,
-        province: req.body.province,
-        postcode: req.body.postcode
-      });
-
-      newAdr.save(err => {if(err) res.redirect("/error")});
-      res.redirect("/payment");
-    }
-  });
+        newAdr.save(err => {if(err) res.redirect("/error")});
+        res.redirect("/payment");
+      }
+    });
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.get("/payment", (req, res) => {
-  if(!req.isAuthenticated()) res.redirect("/login");
+  if(req.isAuthenticated()){
+    Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
+      if(err) res.redirect("/error");
 
-  Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
-    if(err) res.redirect("/error");
+      var respac = {};
+      respac.csrfToken = req.csrfToken();
 
-    var respac = {};
-    respac.csrfToken = req.csrfToken();
+      if(crt){
+        respac.product1 = crt.product1;
+        respac.product2 = crt.product2;
+        respac.product3 = crt.product3;
+        respac.product4 = crt.product4;
+      }
 
-    if(crt){
-      respac.product1 = crt.product1;
-      respac.product2 = crt.product2;
-      respac.product3 = crt.product3;
-      respac.product4 = crt.product4;
-    }
-
-    res.status(200).render("payment", respac);
-  });
+      res.status(200).render("payment", respac);
+    });
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.post("/payment", (req, res) => {
-  if(!req.isAuthenticated()) res.redirect("/login");
+  if(req.isAuthenticated()){
+    Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
+      if(err) res.redirect("/error");
 
-  Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
-    if(err) res.redirect("/error");
-
-    if(crt){
-      var newOrder = new Order({
-        userID: req.session.passport.user,
-        status: "requested",
-        product1: crt.product1,
-        product2: crt.product2,
-        product3: crt.product3,
-        product4: crt.product4
-      });
-
-      newOrder.save(err => {
-        if(err) res.redirect("/error");
-
-        Cart.deleteOne({'_id': crt._id}, err => {
-          if(err) res.redirect("/error");
+      if(crt){
+        var newOrder = new Order({
+          userID: req.session.passport.user,
+          status: "requested",
+          product1: crt.product1,
+          product2: crt.product2,
+          product3: crt.product3,
+          product4: crt.product4
         });
 
-        res.redirect("user");
-      });
-    } else {
-      res.redirect("/cart");
-    }
-  });
+        newOrder.save(err => {
+          if(err) res.redirect("/error");
+
+          Cart.deleteOne({'_id': crt._id}, err => {
+            if(err) res.redirect("/error");
+          });
+
+          res.redirect("user");
+        });
+      } else {
+        res.redirect("/cart");
+      }
+    });
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.get("/error", (req, res) => {
