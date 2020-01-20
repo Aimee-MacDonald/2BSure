@@ -19,6 +19,7 @@ const Address = require(path.join(__dirname, "/dbmodels/address"));
 
 const auth = require(path.join(__dirname, "/routes/auth"));
 const mockapi = require(path.join(__dirname, "/routes/mockapi"));
+const info = require(path.join(__dirname, "/routes/info"));
 
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -45,6 +46,7 @@ app.use(csurf());
 
 app.use("/auth", auth);
 app.use("/mockapi", mockapi);
+app.use("/info", info);
 
 app.get("/", (req, res) => {
   res.status(200).render("holding");
@@ -175,30 +177,6 @@ app.get("/cart", (req, res) => {
   } else {
     res.redirect("/login");
   }
-});
-
-app.get("/ketosis", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
-});
-
-app.get("/ketomojo", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
-});
-
-app.get("/instructions", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
-});
-
-app.get("/order_history", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
-});
-
-app.get("/privacy_policy", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
-});
-
-app.get("/terms_of_service", (req, res) => {
-  res.send("<h1>Page not yet Implemented</h1>");
 });
 
 app.get("/learn_more", (req, res) => {
