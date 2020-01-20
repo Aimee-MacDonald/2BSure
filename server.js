@@ -227,13 +227,55 @@ app.get("/removeFromCart", (req, res) => {
 
 app.get("/verifyAddress", (req, res) => {
   if(!req.isAuthenticated()) res.redirect("/login");
-  res.status(200).render("verifyAddress", {csrfToken: req.csrfToken()});
+
+  Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
+    if(err) res.redirect("/error");
+
+    var respac = {};
+    respac.csrfToken = req.csrfToken();
+
+    if(adr){
+      respac.line1 = adr.line1;
+      respac.line2 = adr.line2;
+      respac.town = adr.town;
+      respac.province = adr.province;
+      respac.postcode = adr.postcode;
+    }
+
+    res.status(200).render("verifyAddress", respac);
+  });
 });
 
 app.post("/verifyAddress", (req, res) => {
   if(!req.isAuthenticated()) res.redirect("/login");
 
-  res.redirect("/payment");
+  Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
+    if(err) res.redirect("/error");
+
+    if(adr){
+      adr.line1 = req.body.line1;
+      adr.line2 = req.body.line2;
+      adr.town = req.body.town;
+      adr.province = req.body.province;
+      adr.postcode = req.body.postcode;
+
+      adr.save(err => {if(err) res.redirect("/error")});
+
+      res.redirect("/payment");
+    } else {
+      var newAdr = new Address({
+        userID: req.session.passport.user,
+        line1: req.body.line1,
+        line2: req.body.line2,
+        town: req.body.town,
+        province: req.body.province,
+        postcode: req.body.postcode
+      });
+
+      newAdr.save(err => {if(err) res.redirect("/error")});
+      res.redirect("/payment");
+    }
+  });
 });
 
 app.get("/payment", (req, res) => {
