@@ -208,13 +208,33 @@ app.get("/cart", (req, res) => {
             res.redirect("/error");
           } else {
             var respac = {};
+            var rescart = [];
+
             if(crt){
-              if(crt.product1 > 0) respac.value1 = "Product 1: " + crt.product1;
-              if(crt.product2 > 0) respac.value2 = "Product 2: " + crt.product2;
-              if(crt.product3 > 0) respac.value3 = "Product 3: " + crt.product3;
+              if(crt.product1 > 0){
+                rescart.push({
+                  'name': 'product1',
+                  'quantity': crt.product1
+                });
+              }
+
+              if(crt.product2 > 0){
+                rescart.push({
+                  'name': 'product2',
+                  'quantity': crt.product2
+                });
+              }
+
+              if(crt.product3 > 0){
+                rescart.push({
+                  'name': 'product3',
+                  'quantity': crt.product3
+                });
+              }
             }
 
-            res.status(200).render("cart", {'cart': respac});
+            respac.cart = rescart;
+            res.status(200).render("cart", respac);
           }
         });
       }

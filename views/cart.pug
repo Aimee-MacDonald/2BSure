@@ -2,17 +2,14 @@ extends template.pug
 
 block content
   h1 Cart
-  ul
-    li
-      p #{cart.value1}
-      a(href="/removeFromCart?product=product1") Remove from Cart
-    li
-      p #{cart.value2}
-      a(href="/removeFromCart?product=product2") Remove from Cart
-    li
-      p #{cart.value3}
-      a(href="/removeFromCart?product=product3") Remove from Cart
-
+  table
+    each item in cart
+      tr
+        td= item.name
+        td= item.quantity
+        td
+          a(href=`/removeFromCart?product=${item.name}`) Remove
+          
   p Total: #{cart.total}
 
   a(href="/verifyAddress") Checkout
