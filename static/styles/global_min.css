@@ -2,12 +2,14 @@ body{
   margin: 0;
   background-color: #0bf538;
   background: linear-gradient(to top right, #0bf538, #def50b);
-  min-width: 100vw;
+  width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
   display: flex;
   flex-flow: nowrap column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 h1{
@@ -18,4 +20,13 @@ ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+#sitemap{
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-around;
+  align-items: center;
 }
