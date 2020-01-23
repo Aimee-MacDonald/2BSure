@@ -1,26 +1,19 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/styles/global_min.css")
-    title 2BSure | Products
+extends template.pug
 
-  body
-    div(id="products")
-      div(class="product")
-        img(src="/images/products/product_1.svg", alt="product 1")
-        p R200
-        p Ketomojo
-        a(href="/addToCart?product=product1") Add to Cart
-      div(class="product")
-        img(src="/images/products/product_2.svg", alt="product 2")
-        p R250
-        p Ketomojo and Fifty Glucose Strips
-        a(href="/addToCart?product=product2") Add to Cart
-      div(class="product")
-        img(src="/images/products/product_3.svg", alt="product 3")
-        p R250
-        p Ketomojo and Fifty Ketone Strips
-        a(href="/addToCart?product=product3") Add to Cart
+block content
+  div(id="products")
+    div(class="product")
+      img(src="/images/products/product_1.svg", alt="product 1")
+      p R200
+      p Ketomojo
+      a(href="/addToCart?product=product1") Add to Cart
+    div(class="product")
+      img(src="/images/products/product_2.svg", alt="product 2")
+      p R250
+      p Ketomojo and Fifty Glucose Strips
+      a(href="/addToCart?product=product2") Add to Cart
+    div(class="product")
+      img(src="/images/products/product_3.svg", alt="product 3")
+      p R250
+      p Ketomojo and Fifty Ketone Strips
+      a(href="/addToCart?product=product3") Add to Cart

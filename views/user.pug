@@ -1,17 +1,9 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/styles/global_min.css")
-    title 2BSure | User
+extends template.pug
 
-  body
-    div(class="container")
-      h1 User Page
-      each ord in orders
-        each val in ord
-         p= val
+block content
+  h1 User Page
+  each ord in orders
+    each val in ord
+      p= val
 
-      a(href="/auth/logout") Logout
+  a(href="/auth/logout") Logout

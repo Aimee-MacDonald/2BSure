@@ -1,13 +1,6 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/styles/global_min.css")
-    title 2BSure | Verify Address
+extends template.pug
 
-  body
+block content
   form(action="/verifyAddress", method="post")
     label(for="line1") House Number or Name
     input(id="line1", name="line1", value= line1, required)

@@ -1,15 +1,8 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/styles/global_min.css")
-    title 2BSure | Information
+extends template.pug
 
-  body
-    a(href="/info/ketosis") Ketosis
-    a(href="/info/ketomojo") Ketomojo
-    a(href="/info/instructions") Instructions
-    a(href="/info/privacy_policy") Privacy Policy
-    a(href="/info/terms_of_service") Terms of Service
+block content
+  a(href="/info/ketosis") Ketosis
+  a(href="/info/ketomojo") Ketomojo
+  a(href="/info/instructions") Instructions
+  a(href="/info/privacy_policy") Privacy Policy
+  a(href="/info/terms_of_service") Terms of Service

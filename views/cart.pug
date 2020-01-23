@@ -1,25 +1,18 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/styles/global_min.css")
-    title 2BSure | Cart
+extends template.pug
 
-  body
-    h1 Cart
-    ul
-      li
-        p #{cart.value1}
-        a(href="/removeFromCart?product=product1") Remove from Cart
-      li
-        p #{cart.value2}
-        a(href="/removeFromCart?product=product2") Remove from Cart
-      li
-        p #{cart.value3}
-        a(href="/removeFromCart?product=product3") Remove from Cart
+block content
+  h1 Cart
+  ul
+    li
+      p #{cart.value1}
+      a(href="/removeFromCart?product=product1") Remove from Cart
+    li
+      p #{cart.value2}
+      a(href="/removeFromCart?product=product2") Remove from Cart
+    li
+      p #{cart.value3}
+      a(href="/removeFromCart?product=product3") Remove from Cart
 
-    p Total: #{cart.total}
+  p Total: #{cart.total}
 
-    a(href="/verifyAddress") Checkout
+  a(href="/verifyAddress") Checkout
