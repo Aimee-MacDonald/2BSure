@@ -78,8 +78,7 @@ app.get("/user", (req, res) => {
               'status': ords[i].status,
               'product1': ords[i].product1,
               'product2': ords[i].product2,
-              'product3': ords[i].product3,
-              'product4': ords[i].product4
+              'product3': ords[i].product3
             }
 
             respac.orders.push(ord);
@@ -176,8 +175,7 @@ app.get("/addToCart", (req, res) => {
                 'lastEdit': new Date().getTime(),
                 'product1': 0,
                 'product2': 0,
-                'product3': 0,
-                'product4': 0
+                'product3': 0
               });
 
               newCart[req.query.product] = newCart[req.query.product] + 1;
@@ -214,7 +212,6 @@ app.get("/cart", (req, res) => {
               if(crt.product1 > 0) respac.value1 = "Product 1: " + crt.product1;
               if(crt.product2 > 0) respac.value2 = "Product 2: " + crt.product2;
               if(crt.product3 > 0) respac.value3 = "Product 3: " + crt.product3;
-              if(crt.product4 > 0) respac.value4 = "Product 4: " + crt.product4;
             }
 
             res.status(200).render("cart", {'cart': respac});
@@ -337,7 +334,6 @@ app.get("/payment", (req, res) => {
           respac.product1 = crt.product1;
           respac.product2 = crt.product2;
           respac.product3 = crt.product3;
-          respac.product4 = crt.product4;
         }
 
         res.status(200).render("payment", respac);
@@ -360,8 +356,7 @@ app.post("/payment", (req, res) => {
             'status': "requested",
             'product1': crt.product1,
             'product2': crt.product2,
-            'product3': crt.product3,
-            'product4': crt.product4
+            'product3': crt.product3
           });
 
           newOrder.save(err2 => {
