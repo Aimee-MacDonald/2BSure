@@ -22,6 +22,29 @@ ul{
   padding: 0;
 }
 
+.page{
+  width: 90%;
+  height: 100vh;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.hbox{
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.vbox{
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 #sitemap{
   width: 100%;
   padding: 1rem;

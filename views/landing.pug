@@ -1,27 +1,28 @@
 extends template.pug
 
 block content
-  img(src="/images/ketomojo.svg", alt="Ketomojo", id="splash")
-  p Short descriptive paragraph explaining the purpose and importance of ketomojo
-  div
-    a(href="learn_more") Learn More
-    a(href="products") Order Now
+  div(class="page")
+    img(src="/images/ketomojo.svg", alt="Ketomojo", id="splash")
+    p Short descriptive paragraph explaining the purpose and importance of ketomojo
+    div
+      a(href="learn_more") Learn More
+      a(href="products") Order Now
 
-  div(id="products")
-    div(class="product")
-      img(src="/images/products/product_1.svg", alt="product 1")
+  div(class="hbox")
+    div(class="vbox")
+      img(src="/images/products/product_1.svg", alt="Ketomojo")
       p R200
       p Ketomojo
       a(href="/addToCart?product=product1") Add to Cart
 
-    div(class="product")
-      img(src="/images/products/product_2.svg", alt="product 2")
-      p R250
-      p Ketomojo and Fifty Glucose Strips
+    div(class="vbox")
+      img(src="/images/products/product_2.svg", alt="Glucose Strips")
+      p R50
+      p Glucose Strips
       a(href="/addToCart?product=product2") Add to Cart
-      
-    div(class="product")
-      img(src="/images/products/product_3.svg", alt="product 3")
-      p R250
-      p Ketomojo and Fifty Ketone Strips
+
+    div(class="vbox")
+      img(src="/images/products/product_3.svg", alt="Ketone Strips")
+      p R50
+      p Ketone Strips
       a(href="/addToCart?product=product3") Add to Cart
