@@ -351,11 +351,32 @@ app.get("/payment", (req, res) => {
         respac.csrfToken = req.csrfToken();
 
         if(crt){
-          respac.product1 = crt.product1;
-          respac.product2 = crt.product2;
-          respac.product3 = crt.product3;
+          var rescart = [];
+          if(crt.product1 > 0){
+            rescart.push({
+              'name': 'product1',
+              'quantity': crt.product1
+            });
+          }
+
+          if(crt.product2 > 0){
+            rescart.push({
+              'name': 'product2',
+              'quantity': crt.product2
+            });
+          }
+
+          if(crt.product3 > 0){
+            rescart.push({
+              'name': 'product3',
+              'quantity': crt.product3
+            });
+          }
+
+          respac.cart = rescart;
         }
 
+        console.log(respac);
         res.status(200).render("payment", respac);
       }
     });

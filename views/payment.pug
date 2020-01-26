@@ -2,8 +2,10 @@ extends template.pug
 
 block content
   form(action="/payment", method="post")
-    p #{product1}
-    p #{product2}
-    p #{product3}
+    table
+      each item in cart
+        tr
+          td= item.name
+          td= item.quantity
     input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
     button Pay
