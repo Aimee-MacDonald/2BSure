@@ -1,7 +1,7 @@
 extends template.pug
 
 block content
-  form(action="/verifyAddress", method="post")
+  form(action="/verifyAddress", method="post", class="vbox")
     label(for="line1") House Number or Name
     input(id="line1", name="line1", value= line1, required)
     label(for="line2") Street Name
