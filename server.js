@@ -145,7 +145,19 @@ app.get("/verifyEmail", (req, res) => {
 });
 
 app.get("/landing", (req, res) => {
-  res.status(200).render("landing");
+  if(req.isAuthenticated()){
+    Product.find({}, (err, prds) => {
+      if(err){
+        res.redirect("/error");
+      } else {
+        var respac = {};
+        respac.products = prds;
+        res.status(200).render("landing", respac);
+      }
+    });
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.get("/addToCart", (req, res) => {

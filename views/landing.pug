@@ -9,20 +9,9 @@ block content
       a(href="products") Order Now
 
   div(class="hbox")
-    div(class="vbox")
-      img(src="/images/products/product_1.svg", alt="Ketomojo")
-      p R200
-      p Ketomojo
-      a(href="/addToCart?product=product1") Add to Cart
-
-    div(class="vbox")
-      img(src="/images/products/product_2.svg", alt="Glucose Strips")
-      p R50
-      p Glucose Strips
-      a(href="/addToCart?product=product2") Add to Cart
-
-    div(class="vbox")
-      img(src="/images/products/product_3.svg", alt="Ketone Strips")
-      p R50
-      p Ketone Strips
-      a(href="/addToCart?product=product3") Add to Cart
+    for product in products
+      div(class="vbox")
+        img(src= product.imageURL)
+        p R#{product.price}
+        p #{product.name}
+        a(href=`/removeFromCart?product=${product._id}`) Add to Cart
