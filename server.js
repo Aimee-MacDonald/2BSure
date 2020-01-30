@@ -152,6 +152,7 @@ app.get("/landing", (req, res) => {
       } else {
         var respac = {};
         respac.products = prds;
+        respac.csrfToken = req.csrfToken();
         res.status(200).render("landing", respac);
       }
     });
@@ -160,7 +161,7 @@ app.get("/landing", (req, res) => {
   }
 });
 
-app.get("/addToCart", (req, res) => {
+app.post("/addToCart", (req, res) => {
   if(req.isAuthenticated()){
     User.findById(req.session.passport.user, (err, usr) => {
       if(err){
