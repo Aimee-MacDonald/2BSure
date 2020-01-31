@@ -10,7 +10,7 @@ block content
 
   div(class="hbox")
     for product in products
-      form(action="/addToCart", method="post", class="vbox")
+      form(action="/cart/addToCart", method="post", class="vbox")
         img(src= product.imageURL)
         p R#{product.price}
         p #{product.name}
