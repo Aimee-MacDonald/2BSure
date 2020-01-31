@@ -9,7 +9,7 @@ block content
         td= item.quantity
         td
           a(href=`/removeFromCart?product=${item.name}`) Remove
-          
+
   p Total: #{cart.total}
 
-  a(href="/verifyAddress") Checkout
+  a(href="/payment/verifyAddress") Checkout

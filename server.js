@@ -21,6 +21,7 @@ const authRoute = require(path.join(__dirname, "/routes/auth"));
 const mockapiRoute = require(path.join(__dirname, "/routes/mockapi"));
 const infoRoute = require(path.join(__dirname, "/routes/info"));
 const cartRoute = require(path.join(__dirname, "/routes/cart"));
+const paymentRoute = require(path.join(__dirname, "/routes/payment"));
 
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -49,6 +50,7 @@ app.use("/auth", authRoute);
 app.use("/mockapi", mockapiRoute);
 app.use("/info", infoRoute);
 app.use("/cart", cartRoute);
+app.use("/payment", paymentRoute);
 
 app.get("/", (req, res) => {
   res.status(200).render("holding");
@@ -165,158 +167,6 @@ app.get("/landing", (req, res) => {
 
 app.get("/learn_more", (req, res) => {
   res.status(200).render("information");
-});
-
-app.get("/verifyAddress", (req, res) => {
-  if(req.isAuthenticated()){
-    Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        var respac = {};
-        respac.csrfToken = req.csrfToken();
-
-        if(adr){
-          respac.line1 = adr.line1;
-          respac.line2 = adr.line2;
-          respac.town = adr.town;
-          respac.province = adr.province;
-          respac.postcode = adr.postcode;
-        }
-
-        res.status(200).render("verifyAddress", respac);
-      }
-    });
-  } else {
-     res.redirect("/login");
-  }
-});
-
-app.post("/verifyAddress", (req, res) => {
-  if(req.isAuthenticated()){
-    Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        if(adr){
-          adr.line1 = req.body.line1;
-          adr.line2 = req.body.line2;
-          adr.town = req.body.town;
-          adr.province = req.body.province;
-          adr.postcode = req.body.postcode;
-
-          adr.save(err2 => {
-            if(err2){
-              res.redirect("/error");
-            } else {
-              res.redirect("/payment");
-            }
-          });
-        } else {
-          var newAdr = new Address({
-            'userID': req.session.passport.user,
-            'line1': req.body.line1,
-            'line2': req.body.line2,
-            'town': req.body.town,
-            'province': req.body.province,
-            'postcode': req.body.postcode
-          });
-
-          newAdr.save(err3 => {
-            if(err3){
-              res.redirect("/error");
-            } else {
-              res.redirect("/payment");
-            }
-          });
-        }
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/payment", (req, res) => {
-  if(req.isAuthenticated()){
-    Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        var respac = {};
-        respac.csrfToken = req.csrfToken();
-
-        if(crt){
-          var rescart = [];
-          if(crt.product1 > 0){
-            rescart.push({
-              'name': 'product1',
-              'quantity': crt.product1
-            });
-          }
-
-          if(crt.product2 > 0){
-            rescart.push({
-              'name': 'product2',
-              'quantity': crt.product2
-            });
-          }
-
-          if(crt.product3 > 0){
-            rescart.push({
-              'name': 'product3',
-              'quantity': crt.product3
-            });
-          }
-
-          respac.cart = rescart;
-        }
-
-        console.log(respac);
-        res.status(200).render("payment", respac);
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.post("/payment", (req, res) => {
-  if(req.isAuthenticated()){
-    Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        if(crt){
-          var newOrder = new Order({
-            'userID': req.session.passport.user,
-            'status': "requested",
-            'product1': crt.product1,
-            'product2': crt.product2,
-            'product3': crt.product3
-          });
-
-          newOrder.save(err2 => {
-            if(err2){
-              res.redirect("/error");
-            } else {
-              Cart.deleteOne({'_id': crt._id}, err3 => {
-                if(err3){
-                  res.redirect("/error");
-                } else {
-                  res.redirect("/user");
-                }
-              });
-            }
-          });
-        } else {
-          res.redirect("/cart");
-        }
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
 });
 
 app.get("/error", (req, res) => {
