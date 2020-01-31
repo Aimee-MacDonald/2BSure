@@ -14,5 +14,6 @@ block content
         img(src= product.imageURL)
         p R#{product.price}
         p #{product.name}
+        input(name="product", value= product.id, type="hidden")
         input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
         button(type="submit") Add to Cart

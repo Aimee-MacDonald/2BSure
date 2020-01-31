@@ -163,45 +163,56 @@ app.get("/landing", (req, res) => {
 
 app.post("/addToCart", (req, res) => {
   if(req.isAuthenticated()){
-    User.findById(req.session.passport.user, (err, usr) => {
+    Product.findById(req.body.product, (err, prd) => {
       if(err){
         res.redirect("/error");
       } else {
-        Cart.findOne({'userID': req.session.passport.user}, (err2, docs) => {
-          if(err2){
+        Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
+          if(err){
             res.redirect("/error");
           } else {
-            if(docs){
-              docs[req.query.product] = docs[req.query.product] + 1;
-              docs.lastEdit = new Date().getTime();
-
-              docs.save(err3 => {
-                if(err3){
-                  res.redirect("/error");
-                } else {
-                  res.redirect("/cart");
+            if(crt){
+              for(var i = 0; i < crt.products.length; i++){
+                if(crt.products[i].productID === req.body.product){
+                  crt.products[i].quantity = crt.products[i].quantity + 1;
+                  crt.products[i].subTotal = crt.products[i].quantity * prd.price;
+                  crt.markModified('products');
                 }
-              });
+              }
+
+              if(!crt.isModified('products')){
+                crt.products.push({
+                  'productID': req.body.product,
+                  'quantity': 1,
+                  'subTotal': prd.price
+                });
+              }
             } else {
-              var newCart = new Cart({
+              crt = new Cart({
                 'userID': req.session.passport.user,
                 'lastEdit': new Date().getTime(),
-                'product1': 0,
-                'product2': 0,
-                'product3': 0
-              });
-
-              newCart[req.query.product] = newCart[req.query.product] + 1;
-
-              newCart.save(err4 => {
-                if(err4){
-                  res.redirect("/error");
-                } else {
-                  res.redirect("/cart");
-                }
+                'products': [{
+                  'productID': req.body.product,
+                  'quantity': 1,
+                  'subTotal': prd.price
+                }],
+                'total': prd.price
               });
             }
           }
+
+          crt.total = 0;
+          for(var i = 0; i < crt.products.length; i++){
+            crt.total += crt.products[i].subTotal;
+          }
+
+          crt.save(err => {
+            if(err){
+              res.redirect("/error");
+            } else {
+              res.redirect("/cart");
+            }
+          })
         });
       }
     });
