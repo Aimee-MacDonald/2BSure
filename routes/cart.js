@@ -16,34 +16,7 @@ router.get("/", (req, res) => {
           if(err2){
             res.redirect("/error");
           } else {
-            var respac = {};
-            var rescart = [];
-
-            if(crt){
-              if(crt.product1 > 0){
-                rescart.push({
-                  'name': 'product1',
-                  'quantity': crt.product1
-                });
-              }
-
-              if(crt.product2 > 0){
-                rescart.push({
-                  'name': 'product2',
-                  'quantity': crt.product2
-                });
-              }
-
-              if(crt.product3 > 0){
-                rescart.push({
-                  'name': 'product3',
-                  'quantity': crt.product3
-                });
-              }
-            }
-
-            respac.cart = rescart;
-            res.status(200).render("cart", respac);
+            res.status(200).render("cart", crt);
           }
         });
       }

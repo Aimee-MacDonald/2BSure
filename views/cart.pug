@@ -2,14 +2,20 @@ extends template.pug
 
 block content
   h1 Cart
+
   table
-    each item in cart
+    tr
+      td Product ID
+      td Number of Products
+      td Subtotal
+    each item in products
       tr
-        td= item.name
+        td= item.productID
         td= item.quantity
+        td= item.subTotal
         td
           a(href=`/removeFromCart?product=${item.name}`) Remove
 
-  p Total: #{cart.total}
+  p Total: R#{total}
 
   a(href="/payment/verifyAddress") Checkout
