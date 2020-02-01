@@ -33,14 +33,14 @@ ul{
 
 .hbox{
   display: flex;
-  flex-flow: nowrap row;
+  flex-flow: wrap row;
   justify-content: space-around;
   align-items: center;
 }
 
 .vbox{
   display: flex;
-  flex-flow: nowrap column;
+  flex-flow: wrap column;
   justify-content: space-around;
   align-items: center;
 }
