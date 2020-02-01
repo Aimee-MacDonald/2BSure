@@ -1,11 +1,7 @@
 extends template.pug
 
 block content
+  p Total: R#{total}
   form(action="/payment", method="post")
-    //table
-      each item in cart
-        tr
-          td= item.name
-          td= item.quantity
     input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
     button Pay
