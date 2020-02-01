@@ -59,8 +59,8 @@ router.post("/addToCart", (req, res) => {
       if(err){
         res.redirect("/error");
       } else {
-        Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
-          if(err){
+        Cart.findOne({'userID': req.session.passport.user}, (err2, crt) => {
+          if(err2){
             res.redirect("/error");
           } else {
             if(crt){
@@ -98,8 +98,8 @@ router.post("/addToCart", (req, res) => {
             crt.total += crt.products[i].subTotal;
           }
 
-          crt.save(err => {
-            if(err){
+          crt.save(err3 => {
+            if(err3){
               res.redirect("/error");
             } else {
               res.redirect("/cart");
