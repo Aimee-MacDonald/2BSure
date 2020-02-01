@@ -48,6 +48,7 @@ router.post("/addToCart", (req, res) => {
               if(!crt.isModified('products')){
                 crt.products.push({
                   'productID': req.body.product,
+                  'productName': prd.name,
                   'quantity': 1,
                   'subTotal': prd.price
                 });
@@ -58,6 +59,7 @@ router.post("/addToCart", (req, res) => {
                 'lastEdit': new Date().getTime(),
                 'products': [{
                   'productID': req.body.product,
+                  'productName': prd.name,
                   'quantity': 1,
                   'subTotal': prd.price
                 }],

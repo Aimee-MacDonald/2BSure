@@ -6,11 +6,13 @@ block content
   table
     tr
       td Product ID
-      td Number of Products
+      td Product
+      td Quantity
       td Subtotal
     each item in products
       tr
         td= item.productID
+        td= item.productName
         td= item.quantity
         td= item.subTotal
         td
