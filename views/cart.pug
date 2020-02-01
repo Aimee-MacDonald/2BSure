@@ -16,7 +16,7 @@ block content
         td= item.quantity
         td= item.subTotal
         td
-          a(href=`/removeFromCart?product=${item.name}`) Remove
+          a(href=`/cart/removeFromCart?product=${item.productID}`) Remove
 
   p Total: R#{total}
 

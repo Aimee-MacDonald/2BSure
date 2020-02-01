@@ -95,16 +95,29 @@ router.get("/removeFromCart", (req, res) => {
       if(err){
         res.redirect("/error");
       } else {
-        if(crt && crt[req.query.product] > 0){
-          crt[req.query.product] = crt[req.query.product] - 1;
-
-          crt.save(err2 => {
-            if(err2){
-              res.redirect("/error");
+        for(var i = 0; i < crt.products.length; i++){
+          if(crt.products[i].productID === req.query.product){
+            if(crt.products[i].quantity > 1){
+              crt.products[i].quantity -= 1;
+              crt.markModified('products');
+            } else {
+              crt.products.splice(i, 1);
             }
-          });
+          }
         }
-        res.redirect("/cart");
+
+        crt.total = 0;
+        for(var i = 0; i < crt.products.length; i++){
+          crt.total += crt.products[i].subTotal;
+        }
+
+        crt.save(err2 => {
+          if(err2){
+            res.redirect("/error");
+          } else {
+            res.redirect("/cart");
+          }
+        });
       }
     });
   } else {
