@@ -37,9 +37,8 @@ router.post("/", (req, res) => {
           var newOrder = new Order({
             'userID': req.session.passport.user,
             'status': "requested",
-            'product1': crt.product1,
-            'product2': crt.product2,
-            'product3': crt.product3
+            'products': crt.products,
+            'total': crt.total
           });
 
           newOrder.save(err2 => {

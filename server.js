@@ -75,18 +75,10 @@ app.get("/user", (req, res) => {
         res.redirect("/error");
       } else {
         var respac = {};
-        respac.orders = [];
-        if(ords.length > 0){
-          for(var i = 0; i < ords.length; i++){
-            var ord = {
-              'status': ords[i].status,
-              'product1': ords[i].product1,
-              'product2': ords[i].product2,
-              'product3': ords[i].product3
-            }
-
-            respac.orders.push(ord);
-          }
+        if(ords){
+          respac.orders = ords;
+        } else {
+          respac.orders = [];
         }
 
         res.status(200).render("user", respac);

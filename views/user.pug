@@ -2,8 +2,15 @@ extends template.pug
 
 block content
   h1 User Page
-  each ord in orders
-    each val in ord
-      p= val
+  table
+    tr
+      td Products
+      td Total
+      td Status
+    for order in orders
+      tr
+        td #{order.products.length}
+        td R#{order.total}
+        td #{order.status}
 
   a(href="/auth/logout") Logout
