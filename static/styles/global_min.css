@@ -10,6 +10,7 @@ body{
   flex-flow: nowrap column;
   justify-content: space-around;
   align-items: center;
+  text-align: center;
 }
 
 h1{
