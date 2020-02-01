@@ -16,6 +16,7 @@ router.get("/", (req, res) => {
           if(err2){
             res.redirect("/error");
           } else {
+            if(!crt) crt = {'products': []};
             res.status(200).render("cart", crt);
           }
         });
