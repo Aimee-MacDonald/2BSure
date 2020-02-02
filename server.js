@@ -22,6 +22,7 @@ const mockapiRoute = require(path.join(__dirname, "/routes/mockapi"));
 const infoRoute = require(path.join(__dirname, "/routes/info"));
 const cartRoute = require(path.join(__dirname, "/routes/cart"));
 const paymentRoute = require(path.join(__dirname, "/routes/payment"));
+const userRoute = require(path.join(__dirname, "/routes/user"));
 
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -51,6 +52,7 @@ app.use("/mockapi", mockapiRoute);
 app.use("/info", infoRoute);
 app.use("/cart", cartRoute);
 app.use("/payment", paymentRoute);
+app.use("/user", userRoute);
 
 app.get("/", (req, res) => {
   res.status(200).render("holding");
@@ -66,45 +68,6 @@ app.get("/register", (req, res) => {
 
 app.get("/login", (req, res) => {
   res.status(200).render("login", {csrfToken: req.csrfToken()});
-});
-
-app.get("/user", (req, res) => {
-  if(req.isAuthenticated()){
-    Order.find({'userID': req.session.passport.user}, (err, ords) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        var respac = {};
-        if(ords){
-          respac.orders = ords;
-        } else {
-          respac.orders = [];
-        }
-
-        res.status(200).render("user", respac);
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/admin", (req, res) => {
-  if(req.isAuthenticated()){
-    User.findById(req.session.passport.user, (err, docs) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        if(docs.access === "admin"){
-          res.status(200).render("admin");
-        } else {
-          res.redirect("/user");
-        }
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
 });
 
 app.get("/verifyEmail", (req, res) => {

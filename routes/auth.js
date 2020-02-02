@@ -84,7 +84,7 @@ router.post("/login", (req, res) => {
                   res.redirect("/error");
                 } else {
                   if(docs[0].access === "admin"){
-                    res.redirect("/admin");
+                    res.redirect("/user/admin");
                   } else {
                     res.redirect("/landing");
                   }
