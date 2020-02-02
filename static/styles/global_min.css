@@ -37,6 +37,7 @@ ul{
   flex-flow: wrap row;
   justify-content: space-around;
   align-items: center;
+  min-width: 50%;
 }
 
 .vbox{
