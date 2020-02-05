@@ -1,34 +1,14 @@
 body{
-  margin: 0;
   background-color: #FFF2D5;
-  width: 100vw;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  display: flex;
-  flex-flow: nowrap column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-}
-
-h1{
   margin: 0;
-}
-
-p{
-  margin: 0;
-}
-
-ul{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
 header{
   background-color: green;
+  position: fixed;
+  width: 100%;
   padding: 1rem 0;
+  justify-content: space-around !important;
 }
 
 header a{
@@ -42,30 +22,36 @@ header a{
 
 footer{
   background-color: green;
-  width: 100%;
+  justify-content: space-around !important;
   padding: 1rem 0;
 }
 
+ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+p{
+  text-align: center;
+}
+
 .page{
-  width: 90%;
+  width: 100%;
+  overflow-x: hidden;
   height: 100vh;
-  display: flex;
-  flex-flow: nowrap column;
-  justify-content: center;
-  align-items: center;
 }
 
 .hbox{
   display: flex;
   flex-flow: wrap row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 .vbox{
   display: flex;
   flex-flow: wrap column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }

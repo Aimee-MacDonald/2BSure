@@ -1,16 +1,17 @@
 extends template.pug
 
 block content
-  h1 User Page
-  table
-    tr
-      td Products
-      td Total
-      td Status
-    for order in orders
+  div(class="page vbox")
+    h1 User Page
+    table
       tr
-        td #{order.products.length}
-        td R#{order.total}
-        td #{order.status}
+        td Products
+        td Total
+        td Status
+      for order in orders
+        tr
+          td #{order.products.length}
+          td R#{order.total}
+          td #{order.status}
 
-  a(href="/auth/logout") Logout
+    a(href="/auth/logout") Logout
