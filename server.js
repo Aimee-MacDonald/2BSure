@@ -120,6 +120,10 @@ app.get("/landing", (req, res) => {
   }
 });
 
+app.get("/SPA", (req, res) => {
+  res.status(200).render("SPA");
+});
+
 app.get("/learn_more", (req, res) => {
   res.status(200).render("information");
 });
