@@ -1,15 +1,16 @@
 extends template.pug
 
 block content
-  form(action="/auth/login", method="post", class="page vbox")
-    label(for="email") Email:
-    input(type="email", id="email", name="email", placeholder="Email")
+  div(class="page vbox")
+    form(action="/auth/login", method="post", class="vbox panel")
+      label(for="email") Email:
+      input(type="email", id="email", name="email", placeholder="Email")
 
-    label(for="password") Password:
-    input(type="password", id="password", name="password", placeholder="Password")
+      label(for="password") Password:
+      input(type="password", id="password", name="password", placeholder="Password")
 
-    input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+      input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
 
-    button(type="submit") Login
+      button(type="submit") Login
 
-    a(href="/auth/forgotPassword") Forgot Password
+      a(href="/auth/forgotPassword") Forgot Password

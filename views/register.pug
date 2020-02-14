@@ -1,16 +1,17 @@
 extends template.pug
 
 block content
-  form(action="/auth/register", method="post", class="page vbox")
-    label(for="email") Email:
-    input(type="email", id="email", name="email", placeholder="Email")
+  div(class="vbox page")
+    form(action="/auth/register", method="post", class="vbox panel")
+      label(for="email") Email:
+      input(type="email", id="email", name="email", placeholder="Email")
 
-    label(for="password") Password:
-    input(type="password", id="password", name="password", placeholder="Password")
+      label(for="password") Password:
+      input(type="password", id="password", name="password", placeholder="Password")
 
-    label(for="confirm") Confirm Password
-    input(type="password", id="confirm", name="confirm", placeholder="Confirm Password")
+      label(for="confirm") Confirm Password
+      input(type="password", id="confirm", name="confirm", placeholder="Confirm Password")
 
-    input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+      input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
 
-    button(type="submit") Register
+      button(type="submit") Register

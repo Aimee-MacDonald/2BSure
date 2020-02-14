@@ -1,12 +1,13 @@
 extends template.pug
 
 block content
-  div(class="page vbox")
+  div(class="page hbox")
     img(src="/images/ketomojo.svg", alt="Ketomojo", id="splash")
-    p Short descriptive paragraph explaining the purpose and importance of ketomojo
-    div
-      a(href="learn_more") Learn More
-      a(href="products") Order Now
+    div(class="vbox")
+      p Short descriptive paragraph explaining the purpose and importance of ketomojo
+      div
+        a(href="learn_more") Learn More
+        a(href="products") Order Now
 
   div(class="page hbox")
     for product in products

@@ -1,10 +1,12 @@
+
+
 body{
-  background-color: #FFF2D5;
+  background-color: #FBD556;
   margin: 0;
 }
 
 header{
-  background-color: green;
+  background-color: #032B4F;
   position: fixed;
   width: 100%;
   padding: 1rem 0;
@@ -12,7 +14,7 @@ header{
 }
 
 header a{
-  background-color: lime;
+  background-color: #3F74A3;
   color: black;
   padding: 0.5rem 1.5rem;
   border-radius: 0.2rem;
@@ -20,10 +22,24 @@ header a{
   text-decoration: none;
 }
 
+button{
+  padding: 0.7rem 2rem;
+  background-color: #3F74A3;
+  font-weight: bolder;
+  border: 0;
+  border-radius: 0.3rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
 footer{
-  background-color: green;
+  background-color: #032B4F;
   justify-content: space-around !important;
   padding: 1rem 0;
+}
+
+footer a{
+  color: orange;
 }
 
 ul{
@@ -45,7 +61,7 @@ p{
 .hbox{
   display: flex;
   flex-flow: wrap row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -54,4 +70,42 @@ p{
   flex-flow: wrap column;
   justify-content: center;
   align-items: center;
+}
+
+.panel{
+  background-color: #032B4F;
+  color: #3F74A3;
+  padding: 3rem 2rem;
+  min-width: 50%;
+  border-radius: 1rem;
+  box-shadow: 0rem 3rem 5rem 0rem #333;
+}
+
+.panel label{
+  width: 100%;
+  font-weight: bolder;
+  margin-bottom: 0.2rem;
+}
+
+.panel input{
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  width: 100%;
+  border-radius: 0.3rem;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.panel table{
+  min-width: 100%;
+  text-align: center;
+}
+
+.panel a{
+  margin-top: 1.5rem;
+  color: #3F74A3;
+}
+
+#splash{
+  height: 75%;
 }

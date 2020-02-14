@@ -2,7 +2,8 @@ extends template.pug
 
 block content
   div(class="page vbox")
-    p Total: R#{total}
-    form(action="/payment", method="post")
-      input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
-      button Pay
+    div(class="panel vbox")
+      p Total: R#{total}
+      form(action="/payment", method="post")
+        input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+        button Pay
