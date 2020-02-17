@@ -46,8 +46,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post("/payment/notification", (req, res) => {
-  console.log("Payment Notification:");
-  console.log(req.headers.referer);
+  if(req.headers.referer === "https://www.payfast.co.za"){
+
+  } else {
+    res.redirect("/error");
+  }
   res.status(200).send("ok");
 });
 
