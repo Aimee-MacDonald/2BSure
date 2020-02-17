@@ -45,6 +45,11 @@ app.use(bodyParser.urlencoded({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.post("/payment/notification", (req, res) => {
+  console.log("Payment Notification");
+  console.log(req.body);
+});
+
 app.use(csurf());
 
 app.use("/auth", authRoute);

@@ -134,9 +134,4 @@ router.post("/verifyAddress", (req, res) => {
   }
 });
 
-router.post("/notification", (req, res) => {
-  console.log("Payment Notification");
-  console.log(req.body);
-});
-
 module.exports = router;
