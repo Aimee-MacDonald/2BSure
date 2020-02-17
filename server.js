@@ -47,13 +47,8 @@ app.use(passport.session());
 
 app.post("/payment/notification", (req, res) => {
   console.log("Payment Notification:");
-  console.log(req.body);
-
-  console.log("Host:");
-  console.log(req.headers.host);
-
-  console.log("Origin:");
-  console.log(req.get(req.headers.origin));
+  console.log(req.headers);
+  res.status(200).send("ok");
 });
 
 app.use(csurf());
