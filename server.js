@@ -47,7 +47,7 @@ app.use(passport.session());
 
 app.post("/payment/notification", (req, res) => {
   console.log("Payment Notification:");
-  console.log(req.headers);
+  console.log(req.headers.referer);
   res.status(200).send("ok");
 });
 
