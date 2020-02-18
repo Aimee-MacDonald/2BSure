@@ -56,7 +56,7 @@ app.post("/payment/notification", (req, res) => {
          } else {
            if(crt){
              var newOrder = new Order({
-               'userID': req.session.passport.user,
+               'userID': crt.userID,
                'status': "Processing Payment",
                'products': crt.products,
                'total': crt.total
