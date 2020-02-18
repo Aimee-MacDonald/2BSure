@@ -14,8 +14,8 @@ router.get("/", (req, res) => {
       } else {
         if(crt){
           var respac = {};
-          respac.csrfToken = req.csrfToken();
           respac.total = crt.total;
+          respac.cartID = crt.id;
           res.status(200).render("payment", respac);
         } else {
           res.redirect("/cart");

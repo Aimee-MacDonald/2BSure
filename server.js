@@ -48,6 +48,8 @@ app.use(passport.session());
 app.post("/payment/notification", (req, res) => {
   if(req.headers.referer === "https://www.payfast.co.za" &&
      req.body.payment_status === "COMPLETE"){
+       console.log("Payment Notification Custom String:");
+       console.log(req.body.custom_str1);
        // Find the Cart Associated with this Order
        // Create and Save Order
        // Delete Cart
