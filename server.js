@@ -48,13 +48,47 @@ app.use(passport.session());
 app.post("/payment/notification", (req, res) => {
   if(req.headers.referer === "https://www.payfast.co.za" &&
      req.body.payment_status === "COMPLETE"){
-       console.log("Payment Notification Custom String:");
-       console.log(req.body.custom_str1);
-       // Find the Cart Associated with this Order
-       // Create and Save Order
-       // Delete Cart
-       // Send Order to Parcelninja
-       // Update Order Information
+       Cart.findById(req.body.custom_str1, (err, crt) => {
+         if(err){
+           console.log("ERROR!!");
+           console.log(`Cart: ${req.body.custom_str} Not Found`);
+           console.log("No Order Sent");
+         } else {
+           if(crt){
+             var newOrder = new Order({
+               'userID': req.session.passport.user,
+               'status': "Processing Payment",
+               'products': crt.products,
+               'total': crt.total
+             });
+
+             newOrder.save(err2 => {
+               if(err2){
+                 console.log("ERROR!!");
+                 console.log(`Cart: ${req.body.custom_str} Could not be Transferred`);
+                 console.log("No Order Sent");
+               } else {
+                 Cart.deleteOne({'_id': crt._id}, err3 => {
+                   if(err3){
+                     console.log("ERROR!!");
+                     console.log(`Cart: ${req.body.custom_str} Could not be Transferred`);
+                     console.log("No Order Sent");
+                   } else {
+                     // Send Order to Parcelninja
+                     // Update Order Information
+                     res.status(200).send("ok");
+                   }
+                 });
+               }
+             });
+           } else {
+             console.log("ERROR!!");
+             console.log(`Cart: ${req.body.custom_str} Not Found`);
+             console.log("No Order Sent");
+           }
+         }
+       });
+
     /*
 
     router.post("/", (req, res) => {
