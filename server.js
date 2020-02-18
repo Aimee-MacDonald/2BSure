@@ -76,7 +76,6 @@ app.post("/payment/notification", (req, res) => {
                    } else {
                      // Send Order to Parcelninja
                      // Update Order Information
-                     res.status(200).send("ok");
                    }
                  });
                }
