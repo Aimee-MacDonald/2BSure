@@ -27,43 +27,6 @@ router.get("/", (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
-  if(req.isAuthenticated()){
-    Cart.findOne({'userID': req.session.passport.user}, (err, crt) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        if(crt){
-          var newOrder = new Order({
-            'userID': req.session.passport.user,
-            'status': "requested",
-            'products': crt.products,
-            'total': crt.total
-          });
-
-          newOrder.save(err2 => {
-            if(err2){
-              res.redirect("/error");
-            } else {
-              Cart.deleteOne({'_id': crt._id}, err3 => {
-                if(err3){
-                  res.redirect("/error");
-                } else {
-                  res.redirect("/user");
-                }
-              });
-            }
-          });
-        } else {
-          res.redirect("/cart");
-        }
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
-});
-
 router.get("/verifyAddress", (req, res) => {
   if(req.isAuthenticated()){
     Address.findOne({'userID': req.session.passport.user}, (err, adr) => {
