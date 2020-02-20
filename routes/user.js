@@ -61,10 +61,18 @@ router.post("/admin/addStock", (req, res) => {
       console.log('Status:', response.statusCode);
       console.log('Headers:', JSON.stringify(response.headers));
       console.log('Response:', body);
-      res.redirect("/user/admin");
+      res.redirect("/user/admin/inbounds");
     });
   } else {
     res.redirect("login");
+  }
+});
+
+router.get("/admin/inbounds", (req, res) => {
+  if(req.isAuthenticated){
+    res.status(200).render("inbounds");
+  } else {
+    res.redirect("/login");
   }
 });
 
