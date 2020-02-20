@@ -3,4 +3,25 @@ extends template.pug
 block content
   div(class="page vbox")
     h1 Admin Page
+    form(action="/user/admin/addStock", method="post", class="vbox panel")
+      input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+      table
+        tr
+          td Product
+          td Quantity
+        tr
+          td Ketomojo
+          td
+            input(name="ketomojo")
+        tr
+          td Ketone Strips
+          td
+            input(name="ketonestrips")
+        tr
+          td Glucose Strips
+          td
+            input(name="glucosestrips")
+      label Estimated Arrival Date
+      input
+      button(type="submit") Send Notification
     a(href="/auth/logout") Logout

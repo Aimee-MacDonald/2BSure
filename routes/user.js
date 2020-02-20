@@ -33,7 +33,7 @@ router.get("/admin", (req, res) => {
         res.redirect("/error");
       } else {
         if(docs.access === "admin"){
-          res.status(200).render("admin");
+          res.status(200).render("admin", {csrfToken: req.csrfToken()});
         } else {
           res.redirect("/user");
         }
@@ -44,6 +44,14 @@ router.get("/admin", (req, res) => {
   }
 });
 
-
+router.post("/admin/addStock", (req, res) => {
+  if(req.isAuthenticated){
+    console.log("Add Stock");
+    console.log(req.body);
+    res.redirect("/user/admin");
+  } else {
+    res.redirect("login");
+  }
+});
 
 module.exports = router;
