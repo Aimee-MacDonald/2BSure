@@ -1,0 +1,13 @@
+extends template.pug
+
+block content
+  div(class="page vbox")
+    h1 Stock
+    table(class="panel")
+      tr
+        td Name
+        td In Stock
+      for item in items
+        tr
+          td= item.name
+          td= item.instock

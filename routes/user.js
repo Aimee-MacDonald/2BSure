@@ -96,4 +96,33 @@ router.get("/admin/inbounds", (req, res) => {
   }
 });
 
+router.get("/admin/stock", (req, res) => {
+  if(req.isAuthenticated()){
+    request({
+      method: 'GET',
+      url: 'https://private-anon-e700df61f2-parcelninja.apiary-mock.com/api/v1/inventory/?pageSize&page&search',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=='
+      }
+    }, function (error, response, body) {
+      var items = JSON.parse(body).items;
+      var respac = {};
+      respac.items = [];
+
+      for(var i = 0; i < items.length; i++){
+        respac.items.push({
+          'name': items[i].name,
+          'instock': items[i].instock
+        });
+      }
+
+      res.status(200).render("stock", respac);
+    });
+  } else {
+    res.redirect("/login")
+  }
+});
+
 module.exports = router;
