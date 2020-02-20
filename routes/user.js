@@ -69,6 +69,7 @@ router.post("/admin/addStock", (req, res) => {
 });
 
 router.get("/admin/inbounds", (req, res) => {
+  if(req.isAuthenticated()){
     request({
       method: 'GET',
       url: 'https://private-anon-e700df61f2-parcelninja.apiary-mock.com/api/v1/inbounds/?orderTypeId&startDate&endDate&pageSize&page&search&startRange&col&colOrder?startDate=20200101&endDate=20200303&pageSize=15&page=1',
@@ -90,6 +91,9 @@ router.get("/admin/inbounds", (req, res) => {
       }
       res.status(200).render("inbounds", respac);
     });
+  } else {
+    res.redirect("/login");
+  }
 });
 
 module.exports = router;
