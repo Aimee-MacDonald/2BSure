@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const request = require('request');
+
 
 const Order = require(path.join(__dirname, "../dbmodels/order"));
 const User = require(path.join(__dirname, "../dbmodels/user"));
@@ -46,9 +48,21 @@ router.get("/admin", (req, res) => {
 
 router.post("/admin/addStock", (req, res) => {
   if(req.isAuthenticated){
-    console.log("Add Stock");
-    console.log(req.body);
-    res.redirect("/user/admin");
+    request({
+      method: 'POST',
+      url: 'https://private-anon-e700df61f2-parcelninja.apiary-mock.com/api/v1/inbounds',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=='
+      },
+      body: "{  \"clientId\": \"PO-456789\",  \"typeId\": 1,  \"deliveryInfo\": {    \"customer\": \"My Supp\",    \"estimatedArrivalDate\": \"20140731\"  },  \"items\": [    {      \"itemNo\": \"Prod1232\",      \"name\": \"My Product1\",      \"imageURL\": \"http://myimg.co.za/img1\",      \"qty\": 2,      \"costPrice\": 12.5,      \"barcode\": \"1234567890\",      \"captureSerial\": false,      \"captureExpiry\": false    }  ]}"
+    }, function (error, response, body) {
+      console.log('Status:', response.statusCode);
+      console.log('Headers:', JSON.stringify(response.headers));
+      console.log('Response:', body);
+      res.redirect("/user/admin");
+    });
   } else {
     res.redirect("login");
   }
