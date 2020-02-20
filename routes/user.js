@@ -69,11 +69,27 @@ router.post("/admin/addStock", (req, res) => {
 });
 
 router.get("/admin/inbounds", (req, res) => {
-  if(req.isAuthenticated){
-    res.status(200).render("inbounds");
-  } else {
-    res.redirect("/login");
-  }
+    request({
+      method: 'GET',
+      url: 'https://private-anon-e700df61f2-parcelninja.apiary-mock.com/api/v1/inbounds/?orderTypeId&startDate&endDate&pageSize&page&search&startRange&col&colOrder?startDate=20200101&endDate=20200303&pageSize=15&page=1',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=='
+      }
+    }, function (error, response, body) {
+      var inbounds = JSON.parse(body).inbounds;
+      var respac = {};
+      respac.inbounds = [];
+      for(var i = 0; i < inbounds.length; i++){
+        respac.inbounds.push({
+          'createDate': inbounds[i].createDate,
+          'numItems': inbounds[i].numItems,
+          'status': inbounds[i].status.description
+        });
+      }
+      res.status(200).render("inbounds", respac);
+    });
 });
 
 module.exports = router;

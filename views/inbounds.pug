@@ -3,3 +3,13 @@ extends template.pug
 block content
   div(class="page vbox")
     h1 Inbounds
+    table
+      tr
+        td Date
+        td Items
+        td Status
+      for inbound in inbounds
+        tr
+          td= inbound.createDate
+          td= inbound.numItems
+          td= inbound.status
