@@ -6,7 +6,7 @@ body{
 }
 
 header{
-  background-color: #3a536b;
+  background-color: #2a323b;
   position: fixed;
   width: 100%;
   padding: 1rem 0;
@@ -15,12 +15,31 @@ header{
 }
 
 header a{
-  background-color: #00a2e8;
-  color: white;
-  padding: 0.5rem 1.5rem;
+  background-color: transparent;
+  color: #e3f6ff;
+  padding: 0.5rem 2rem;
   border-radius: 0.2rem;
   font-weight: bolder;
   text-decoration: none;
+  transition: 0.2s;
+}
+
+header a:hover{
+  background-color: #00a2e8;
+  transform: translateY(-2px);
+}
+
+.home_header{
+  justify-content: space-between !important;
+}
+
+.home_header img{
+  margin-left: 1rem;
+}
+
+.home_header a{
+  background-color: #00a2e8;
+  margin-right: 1rem;
 }
 
 button{
@@ -34,7 +53,7 @@ button{
 }
 
 footer{
-  background-color: #3a536b;
+  background-color: #2a323b;
   justify-content: space-around !important;
   padding: 1rem 0;
 }

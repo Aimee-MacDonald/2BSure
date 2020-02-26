@@ -8,10 +8,11 @@ html(lang="en")
     title 2BSure | #{title}
 
   body
-    header(class="hbox")
-      a(href="/landing") Home
-      a(href="/user") User
-      a(href="/cart") Cart
+    block header
+      header(class="hbox")
+        a(href="/landing") Home
+        a(href="/user") User
+        a(href="/cart") Cart
 
     block content
 
