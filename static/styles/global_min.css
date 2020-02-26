@@ -1,21 +1,22 @@
 
 
 body{
-  background-color: #FBD556;
+  background-color: #fef0c0;
   margin: 0;
 }
 
 header{
-  background-color: #032B4F;
+  background-color: #3a536b;
   position: fixed;
   width: 100%;
   padding: 1rem 0;
   justify-content: space-around !important;
+  box-shadow: 0 0.2rem 0.2rem 0 #666;
 }
 
 header a{
-  background-color: #3F74A3;
-  color: black;
+  background-color: #00a2e8;
+  color: white;
   padding: 0.5rem 1.5rem;
   border-radius: 0.2rem;
   font-weight: bolder;
@@ -33,13 +34,13 @@ button{
 }
 
 footer{
-  background-color: #032B4F;
+  background-color: #3a536b;
   justify-content: space-around !important;
   padding: 1rem 0;
 }
 
 footer a{
-  color: orange;
+  color: white;
 }
 
 ul{
