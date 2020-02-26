@@ -6,6 +6,7 @@ const request = require('request');
 
 const Order = require(path.join(__dirname, "../dbmodels/order"));
 const User = require(path.join(__dirname, "../dbmodels/user"));
+const Product = require(path.join(__dirname, "../dbmodels/product"));
 
 router.get("/", (req, res) => {
   if(req.isAuthenticated()){
@@ -122,6 +123,38 @@ router.get("/admin/stock", (req, res) => {
     });
   } else {
     res.redirect("/login")
+  }
+});
+
+router.get("/admin/addProduct", (req, res) => {
+  if(req.isAuthenticated()){
+    res.status(200).render("addProduct", {csrfToken: req.csrfToken()});
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.post("/admin/addProduct", (req, res) => {
+  if(req.isAuthenticated()){
+    var newProduct = new Product({
+      'upc': req.body.upc,
+      'sku': req.body.sku,
+      'name': req.body.name,
+      'description': req.body.description,
+      'price': req.body.price,
+      'inStock': req.body.inStock,
+      'imageURL': req.body.imageURL
+    });
+
+    newProduct.save(err => {
+      if(err){
+        res.redirect("/error");
+      } else {
+        res.redirect("/user/admin/addProduct");
+      }
+    });
+  } else {
+    res.redirect("/login");
   }
 });
 

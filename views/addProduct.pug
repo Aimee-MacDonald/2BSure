@@ -1,0 +1,28 @@
+extends template.pug
+
+block content
+  form(action="/user/admin/addProduct", method="post", class="page vbox")
+    label(for="upc") UPC / Barcode
+    input(id="upc", name="upc", placeholder="UPC / Barcode")
+
+    label(for="sku") SKU
+    input(id="sku", name="sku", placeholder="SKU")
+
+    label(for="name") Product Name
+    input(id="name", name="name", placeholder="Name")
+
+    label(for="description") Product Description
+    input(id="description", name="description", placeholder="Description")
+
+    label(for="price") Product Price
+    input(id="price", name="price", placeholder="Price")
+
+    label(for="inStock") Quantity in Stock
+    input(id="inStock", name="inStock", placeholder="In Stock")
+
+    label(for="imageURL") Image URL
+    input(id="imageURL", name="imageURL", placeholder="Image URL")
+
+    input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+
+    button(type="submit") Add Product
