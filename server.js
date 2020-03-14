@@ -23,6 +23,7 @@ const infoRoute = require(path.join(__dirname, "/routes/info"));
 const cartRoute = require(path.join(__dirname, "/routes/cart"));
 const paymentRoute = require(path.join(__dirname, "/routes/payment"));
 const userRoute = require(path.join(__dirname, "/routes/user"));
+const productsRoute = require(path.join(__dirname, "/routes/products"));
 
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -142,13 +143,10 @@ app.use("/info", infoRoute);
 app.use("/cart", cartRoute);
 app.use("/payment", paymentRoute);
 app.use("/user", userRoute);
+app.use("/products", productsRoute);
 
 app.get("/", (req, res) => {
   res.status(200).render("holding");
-});
-
-app.get("/products", (req, res) => {
-  res.status(200).render("products");
 });
 
 app.get("/register", (req, res) => {
@@ -213,8 +211,8 @@ app.get("/SPA", (req, res) => {
   res.status(200).render("SPA");
 });
 
-app.get("/learn_more", (req, res) => {
-  res.status(200).render("information");
+app.get("/contact", (req, res) => {
+  res.status(200).render("contact");
 });
 
 app.get("/error", (req, res) => {
