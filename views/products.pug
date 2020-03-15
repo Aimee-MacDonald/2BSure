@@ -2,6 +2,23 @@ extends template.pug
 
 block content
   div(class="vbox page")
-    p Ketomojo
-    p Glucose Strips
-    p Ketone Strips
+    div(class="hbox")
+      img(src="/images/products/ketomojo.svg")
+      p Ketomojo is the best home testing device on the market
+      div(class="vbox")
+        a(href="/products/ketomojo") Read More
+        button Add to Cart
+
+    div(class="hbox")
+      img(src="/images/products/glucose_strips.svg")
+      p Glucose strips for use with the ketomojo monitoring device
+      div(class="vbox")
+        a(href="/products/glucose_strips") Read More
+        button Add to Cart
+
+    div(class="hbox")
+      img(src="/images/products/ketone_strips.svg")
+      p Ketone strips for use with the ketomojo monitoring device
+      div(class="vbox")
+        a(href="/products/ketone_strips") Read More
+        button Add to Cart
