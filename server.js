@@ -191,20 +191,16 @@ app.get("/verifyEmail", (req, res) => {
 });
 
 app.get("/landing", (req, res) => {
-  if(req.isAuthenticated()){
-    Product.find({}, (err, prds) => {
-      if(err){
-        res.redirect("/error");
-      } else {
-        var respac = {};
-        respac.products = prds;
-        respac.csrfToken = req.csrfToken();
-        res.status(200).render("landing", respac);
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
+  Product.find({}, (err, prds) => {
+    if(err){
+      res.redirect("/error");
+    } else {
+      var respac = {};
+      respac.products = prds;
+      respac.csrfToken = req.csrfToken();
+      res.status(200).render("landing", respac);
+    }
+  });
 });
 
 app.get("/SPA", (req, res) => {

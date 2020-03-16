@@ -2,23 +2,12 @@ extends template.pug
 
 block content
   div(class="vbox page")
-    div(class="hbox")
-      img(src="/images/products/ketomojo.svg")
-      p Ketomojo is the best home testing device on the market
-      div(class="vbox")
-        a(href="/products/ketomojo") Read More
-        button Add to Cart
-
-    div(class="hbox")
-      img(src="/images/products/glucose_strips.svg")
-      p Glucose strips for use with the ketomojo monitoring device
-      div(class="vbox")
-        a(href="/products/glucose_strips") Read More
-        button Add to Cart
-
-    div(class="hbox")
-      img(src="/images/products/ketone_strips.svg")
-      p Ketone strips for use with the ketomojo monitoring device
-      div(class="vbox")
-        a(href="/products/ketone_strips") Read More
-        button Add to Cart
+    for product in products
+      form(action="/cart/addToCart", method="post", class="hbox")
+        img(src= product.imageURL)
+        p= product.description
+        div(class="vbox")
+          input(name="product", value= product.id, type="hidden")
+          input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+          a(href=`/products?SKU=${product.sku}`) Read More
+          button(type="submit") Add to Cart

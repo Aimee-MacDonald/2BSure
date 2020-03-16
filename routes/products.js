@@ -1,8 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
+
+const Product = require(path.join(__dirname, "../dbmodels/product"));
 
 router.get("/", (req, res) => {
-  res.status(200).render("products");
+  Product.find({}, (err, prds) => {
+    if(err){
+      res.redirect("/error");
+    } else {
+      var respac = {};
+      respac.products = prds;
+      respac.csrfToken = req.csrfToken();
+      res.status(200).render("products", respac);
+    }
+  });
 });
 
 router.get("/ketomojo", (req, res) => {
