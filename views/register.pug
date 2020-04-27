@@ -1,5 +1,10 @@
 extends template.pug
 
+block header
+  header(class="hbox home_header")
+    img(src="/images/logo.svg", alt="Ketomojo")
+    a(href='/login') Login
+
 block content
   div(class="vbox page")
     form(action="/auth/register", method="post", class="vbox panel")
