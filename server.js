@@ -16,6 +16,7 @@ const Product = require(path.join(__dirname, "/dbmodels/product"));
 const Cart = require(path.join(__dirname, "/dbmodels/cart"));
 const Order = require(path.join(__dirname, "/dbmodels/order"));
 const Address = require(path.join(__dirname, "/dbmodels/address"));
+const Email = require(path.join(__dirname, "/dbmodels/email"));
 
 const authRoute = require(path.join(__dirname, "/routes/auth"));
 const mockapiRoute = require(path.join(__dirname, "/routes/mockapi"));
@@ -146,8 +147,35 @@ app.use("/user", userRoute);
 app.use("/products", productsRoute);
 
 app.get("/", (req, res) => {
-  res.status(200).render("holding");
+  res.status(200).render("holding", {csrfToken: req.csrfToken()});
 });
+
+app.post("/emailList", (req, res) => {
+  Email.find({'email': req.body.email}, (err, em) => {
+    if(err){
+      res.redirect("/error");
+    } else {
+      if(em.length === 0){
+        var newEmail = new Email({
+          name: req.body.name,
+          email: req.body.email
+        });
+
+        newEmail.save(err2 => {
+          if(err2){
+            res.redirect("/error");
+          }
+        });
+      }
+
+      res.redirect("/mailingListSuccess");
+    }
+  })
+});
+
+app.get("/mailingListSuccess", (req, res) => {
+  res.status(200).render("mailingListSuccess");
+})
 
 app.get("/register", (req, res) => {
   res.status(200).render("register", {csrfToken: req.csrfToken()});

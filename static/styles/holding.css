@@ -1,0 +1,74 @@
+body{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: wrap row;
+  width: 100vw;
+  height: 100vh;
+}
+
+p{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  max-width: 20rem;
+  font-size: 16pt;
+}
+
+#splash{
+  background-color: #00a2e8;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-items: center;
+}
+
+img{
+  margin-bottom: 10%;
+  height: 50%;
+}
+
+#mailingList{
+  background-color: #e3f6ff;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-items: center;
+}
+
+form{
+  display: flex;
+  flex-flow: nowrap column;
+  margin-top: 10%;
+}
+
+input{
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.2rem;
+  border: none;
+}
+
+button{
+  padding: 0.5rem;
+  background-color: #00638e;
+  color: #ffb00f;
+  font-weight: bolder;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+@media screen and (orientation: landscape){
+  #splash{
+    width: 50%;
+    height: 100%;
+  }
+
+  #mailingList{
+    width: 50%;
+    height: 100%;
+  }
+}

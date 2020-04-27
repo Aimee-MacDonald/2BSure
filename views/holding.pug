@@ -4,11 +4,20 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/styles/global_min.css")
+    link(rel="stylesheet", href="/styles/holding.css")
     title 2BSure
 
   body
-    div(class="page vbox")
+    div(id="splash")
       img(src="/images/ketomojo.svg", class="splash_image")
-      h1 2BSure
-      p Coming Soon
+      p Be sure your body is in ketosis with Ketomojo, the most accurate at-home glucose and ketone monitor available.
+
+    div(id="mailingList")
+      p While we are busy setting things up, enter your email address to be notified as soon as we are ready
+      form(action="/emailList", method="post")
+        label(for="name") Name:
+        input(type="text", name="name",  id="name", placeholder="Name", required)
+        label(for="email") Email:
+        input(type="email", name="email", id="email", placeholder="Email" required)
+        input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+        button Subscribe
