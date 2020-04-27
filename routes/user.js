@@ -10,18 +10,12 @@ const Product = require(path.join(__dirname, "../dbmodels/product"));
 
 router.get("/", (req, res) => {
   if(req.isAuthenticated()){
-    Order.find({'userID': req.session.passport.user}, (err, ords) => {
+    User.findById(req.session.passport.user, (err, usr) => {
       if(err){
         res.redirect("/error");
       } else {
-        var respac = {};
-        if(ords){
-          respac.orders = ords;
-        } else {
-          respac.orders = [];
-        }
-
-        res.status(200).render("user", respac);
+        console.log(usr);
+        res.status(200).render("user");
       }
     });
   } else {
