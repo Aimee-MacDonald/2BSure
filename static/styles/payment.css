@@ -1,0 +1,28 @@
+#address-block form{
+  display: flex;
+  flex-flow: nowrap column;
+}
+
+#address-block form button{
+  width: 50%;
+  align-self: center;
+}
+
+.labeledInput{
+  display: flex;
+  flex-flow: nowrap row;
+  align-items: center;
+  height: 2rem;
+  margin: 0.5rem;
+}
+
+.labeledInput input{
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0rem 0.5rem;
+}
+
+@media screen and (orientation: landscape){
+
+}

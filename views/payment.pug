@@ -1,8 +1,43 @@
 extends template.pug
 
 block content
-  div(class="page vbox")
-    div(class="panel vbox")
+  link(rel="stylesheet", href="/styles/payment.css")
+  div(class="page hbox")
+    div(id="address-block")
+      h2 Deliver to:
+      form(action="updateAddress", method="post")
+        div(class="labeledInput")
+          label(for="firstname") First Name:
+          input(name="firstname", id="firstname")
+
+        div(class="labeledInput")
+          label(for="lastname") Last Name:
+          input(name="lastname", id="lastname")
+
+        div(class="labeledInput")
+          label(for="number") House Name or Number:
+          input(name="number", id="number")
+
+        div(class="labeledInput")
+          label(for="street") Street Name:
+          input(name="street", id="street")
+
+        div(class="labeledInput")
+          label(for="city") City:
+          input(name="city", id="city")
+
+        div(class="labeledInput")
+          label(for="province") Province:
+          input(name="province", id="province")
+
+        div(class="labeledInput")
+          label(for="postcode") Postcode:
+          input(name="postcode", id="postcode")
+
+        input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+        button(type="submit") Update
+
+    div(id="payment-block")
       p Total: R#{total}
       form(action="https://sandbox.payfast.co.za/eng/process", method="post")
         input(name="amount", value= total, type="hidden")
