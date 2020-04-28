@@ -1,10 +1,12 @@
 extends template.pug
 
 block header
+  link(rel="stylesheet", href="/styles/user.css")
   header(class="hbox home_header")
     img(src="/images/logo.svg", alt="Ketomojo")
     a(href='/auth/logout') Logout
 
 block content
   div(class="page vbox")
-    h1 User
+    h1 Username
+    p There are no active orders to track.
