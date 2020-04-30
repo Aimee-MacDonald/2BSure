@@ -1,4 +1,14 @@
 .page{
   justify-content: flex-start;
-  padding-top: 2rem;
+  padding-top: 3rem;
+}
+
+.section{
+  max-width: 75rem;
+  width: 100%;
+  border-bottom: 1px solid #00a2e8;
+}
+
+.section p{
+  text-align: left;
 }
