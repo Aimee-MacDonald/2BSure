@@ -3,21 +3,80 @@ const router = express.Router();
 const path = require("path");
 const request = require('request');
 
-
 const Order = require(path.join(__dirname, "../dbmodels/order"));
 const User = require(path.join(__dirname, "../dbmodels/user"));
 const Product = require(path.join(__dirname, "../dbmodels/product"));
+const Address = require(path.join(__dirname, "../dbmodels/address"));
 
 router.get("/", (req, res) => {
   if(req.isAuthenticated()){
-    User.findById(req.session.passport.user, (err, usr) => {
+    var respac = {};
+    respac.csrfToken = req.csrfToken();
+
+    Address.find({'userID': req.session.passport.user}, (err, adr) => {
       if(err){
         res.redirect("/error");
       } else {
-        console.log(usr);
-        res.status(200).render("user");
+        if(adr.length > 0){
+          respac.firstname = adr[0].firstname;
+          respac.lastname = adr[0].lastname;
+          respac.number = adr[0].number;
+          respac.street = adr[0].street;
+          respac.city = adr[0].city;
+          respac.postcode = adr[0].postcode;
+          respac.province = adr[0].province;
+        }
+
+        res.status(200).render("user", respac);
       }
     });
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.post("/address", (req, res) => {
+  if(req.isAuthenticated()){
+    Address.find({"userID": req.session.passport.user}, (err, adr) => {
+      if(err){
+        res.redirect("/error");
+      } else {
+        if(adr.length > 0){
+          adr[0].firstname = req.body.firstname;
+          adr[0].lastname = req.body.lastname;
+          adr[0].number = req.body.number;
+          adr[0].street = req.body.street;
+          adr[0].city = req.body.city;
+          adr[0].postcode = req.body.postcode;
+          adr[0].province = req.body.province;
+
+          adr[0].save(err2 => {
+            if(err2){
+              res.redirect("/error");
+            }
+          });
+        } else {
+          var newAddr = new Address({
+            'userID': req.session.passport.user,
+            'firstname': req.body.firstname,
+            'lastname': req.body.lastname,
+            'number': req.body.number,
+            'street': req.body.street,
+            'city': req.body.city,
+            'postcode': req.body.postcode,
+            'province': req.body.province
+          });
+
+          newAddr.save(err3 => {
+            if(err3){
+              res.redirect("/error");
+            }
+          });
+        }
+      }
+    });
+
+    res.redirect("/user");
   } else {
     res.redirect("/login");
   }

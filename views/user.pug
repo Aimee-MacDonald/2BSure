@@ -10,11 +10,37 @@ block content
   div(class="page vbox")
     div(class="section")
       h2 Address Information
-      p Aimee MacDonald
-      p 27 da Game Street
-      p Saldanha
-      p 7395
-      p Western Cape
+      form(action="/user/address", method="post")
+        div(class="labeled-input")
+          label(for="firstname") Firstname:
+          input(id="firstname", name="firstname", value= firstname)
+
+        div(class="labeled-input")
+          label(for="lastname") Lastname:
+          input(id="lastname", name="lastname", value= lastname)
+
+        div(class="labeled-input")
+          label(for="number") House Name or Number
+          input(id="number", name="number", value= number)
+
+        div(class="labeled-input")
+          label(for="street") Streetname:
+          input(id="street", name="street", value= street)
+
+        div(class="labeled-input")
+          label(for="city") City:
+          input(id="city", name="city", value= city)
+
+        div(class="labeled-input")
+          label(for="postcode") Postcode:
+          input(id="postcode", name="postcode", value= postcode)
+
+        div(class="labeled-input")
+          label(for="Province") Province:
+          input(id="province", name="province", value= province)
+
+        input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+        button(type="submit") Update
 
     div(class="section")
       h2 Order Tracking

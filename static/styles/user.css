@@ -12,3 +12,12 @@
 .section p{
   text-align: left;
 }
+
+.section form{
+  display: flex;
+  flex-flow: nowrap column;
+}
+
+.labeled-input input{
+  border: none;
+}
