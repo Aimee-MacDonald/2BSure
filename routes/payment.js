@@ -14,10 +14,28 @@ router.get("/", (req, res) => {
       } else {
         if(crt){
           var respac = {};
-          respac.total = crt.total;
+          respac.cartTotal = crt.total;
           respac.cartID = crt.id;
+          respac.cartProducts = crt.products;
           respac.csrfToken = req.csrfToken();
-          res.status(200).render("payment", respac);
+
+          Address.findOne({'userID': req.session.passport.user}, (err2, adr) => {
+            if(err2){
+              res.redirect("/error");
+            } else {
+              if(adr){
+                respac.firstname = adr.firstname;
+                respac.lastname = adr.lastname;
+                respac.number = adr.number;
+                respac.street = adr.street;
+                respac.city = adr.city;
+                respac.postcode = adr.postcode;
+                respac.province = adr.province;
+              }
+
+              res.status(200).render("payment", respac);
+            }
+          });
         } else {
           res.redirect("/cart");
         }

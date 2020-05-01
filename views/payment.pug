@@ -8,37 +8,43 @@ block content
       form(action="updateAddress", method="post")
         div(class="labeledInput")
           label(for="firstname") First Name:
-          input(name="firstname", id="firstname")
+          input(name="firstname", id="firstname", value= firstname)
 
         div(class="labeledInput")
           label(for="lastname") Last Name:
-          input(name="lastname", id="lastname")
+          input(name="lastname", id="lastname", value= lastname)
 
         div(class="labeledInput")
           label(for="number") House Name or Number:
-          input(name="number", id="number")
+          input(name="number", id="number", value= number)
 
         div(class="labeledInput")
           label(for="street") Street Name:
-          input(name="street", id="street")
+          input(name="street", id="street", value= street)
 
         div(class="labeledInput")
           label(for="city") City:
-          input(name="city", id="city")
+          input(name="city", id="city", value= city)
 
         div(class="labeledInput")
           label(for="province") Province:
-          input(name="province", id="province")
+          input(name="province", id="province", value= province)
 
         div(class="labeledInput")
           label(for="postcode") Postcode:
-          input(name="postcode", id="postcode")
+          input(name="postcode", id="postcode", value= postcode)
 
         input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
         button(type="submit") Update
 
     div(id="payment-block")
-      p Total: R#{total}
+      table
+        for product in cartProducts
+          tr
+            td #{product.productName}
+            td #{product.quantity}
+            td R#{product.subTotal}
+      p Total: R#{cartTotal}
       form(action="https://sandbox.payfast.co.za/eng/process", method="post")
         input(name="amount", value= total, type="hidden")
         input(name="item_name", value="Ketomojo", type="hidden")
