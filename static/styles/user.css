@@ -1,6 +1,9 @@
 .page{
   justify-content: flex-start;
   padding-top: 3rem;
+  flex-flow: nowrap column;
+  min-height: 100vh;
+  height: auto;
 }
 
 .section{
