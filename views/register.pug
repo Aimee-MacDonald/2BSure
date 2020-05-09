@@ -1,13 +1,14 @@
 extends template.pug
 
 block header
+  link(rel="stylesheet", href="/styles/register.css")
   header(class="hbox home_header")
     img(src="/images/logo.svg", alt="Ketomojo")
     a(href='/login') Login
 
 block content
-  div(class="vbox page")
-    form(action="/auth/register", method="post", class="vbox panel")
+  div(class="page")
+    form(action="/auth/register", method="post")
       label(for="email") Email:
       input(type="email", id="email", name="email", placeholder="Email")
 
@@ -20,3 +21,9 @@ block content
       input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
 
       button(type="submit") Register
+
+    div(id="textarea")
+      p
+        | Please read our
+        a(href="/info/terms_of_service") Terms of Service
+        |  before registering
