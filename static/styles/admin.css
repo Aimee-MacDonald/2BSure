@@ -10,6 +10,14 @@
   max-width: 75rem;
   width: 100%;
   border-bottom: 1px solid #00a2e8;
+  display: flex;
+  flex-flow: nowrap column;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.section h2{
+  align-self: flex-start;
 }
 
 .section p{
@@ -23,4 +31,14 @@
 
 .labeled-input input{
   border: none;
+}
+
+.section table{
+  text-align: center;
+  width: 100%;
+  border: 1px solid #00a2e8;
+}
+
+.dark_row{
+  background-color: #00a2e8;
 }
