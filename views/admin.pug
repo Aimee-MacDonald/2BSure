@@ -1,27 +1,116 @@
 extends template.pug
 
+block header
+  link(rel="stylesheet", href="/styles/admin.css")
+  header(class="hbox home_header")
+    img(src="/images/logo.svg", alt="Ketomojo")
+    a(href='/auth/logout') Logout
+
 block content
   div(class="page vbox")
-    h1 Admin Page
-    form(action="/user/admin/addStock", method="post", class="vbox panel")
-      input(name="_csrf", id="csrf", value= csrfToken, type="hidden")
+    div(class="section")
+      h2  Stock Management
       table
         tr
-          td Product
-          td Quantity
-        tr
-          td Ketomojo
+          td  Product Name
+          td  In Stock
           td
-            input(name="ketomojo")
-        tr
-          td Ketone Strips
           td
-            input(name="ketonestrips")
+
         tr
-          td Glucose Strips
+          td  Ketomojo
+          td  50
           td
-            input(name="glucosestrips")
-      label Estimated Arrival Date
-      input
-      button(type="submit") Send Notification
-    a(href="/auth/logout") Logout
+            button  Add Stock
+          td
+            button  Remove Product
+
+        tr
+          td  Ketone Strips
+          td  50
+          td
+            button  Add Stock
+          td
+            button  Remove Product
+
+        tr
+          td  Glucose Strips
+          td  50
+          td
+            button  Add Stock
+          td
+            button  Remove Product
+
+      button Add Product
+
+    div(class="section")
+      h2  Analytics
+      table
+        tr
+          td  Page
+          td  Visitors
+          td  Unique Visitors
+          td
+
+        tr
+          td  Holding
+          td
+          td
+          td
+            button  Clear
+
+        tr
+          td  Landing
+          td
+          td
+          td
+            button  Clear
+
+        tr
+          td  Products
+          td
+          td
+          td
+            button  Clear
+
+        tr
+          td  Cart
+          td
+          td
+          td
+            button  Clear
+
+        tr
+          td  Payment
+          td
+          td
+          td
+            button  Clear
+
+        tr
+          td  Payment Successful
+          td
+          td
+          td
+            button  Clear
+
+    div(class="section")
+      h2  Client Interaction
+      table
+        tr
+          td  Name
+          td  Message
+          td
+          td
+          td
+
+        tr
+          td  Name
+          td
+            p Message
+          td
+            button  Respond
+          td
+            button  Delete
+          td
+            button  Publish

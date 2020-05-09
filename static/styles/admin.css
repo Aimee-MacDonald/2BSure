@@ -1,0 +1,26 @@
+.page{
+  justify-content: flex-start;
+  padding-top: 3rem;
+  flex-flow: nowrap column;
+  min-height: 100vh;
+  height: auto;
+}
+
+.section{
+  max-width: 75rem;
+  width: 100%;
+  border-bottom: 1px solid #00a2e8;
+}
+
+.section p{
+  text-align: left;
+}
+
+.section form{
+  display: flex;
+  flex-flow: nowrap column;
+}
+
+.labeled-input input{
+  border: none;
+}
